@@ -283,9 +283,9 @@ To launch the system on localhost with the interactive web interface:
 ```cmd
 .\run_web.bat
 ```
-*(or run `python server.py 8080`)*
+*(or run `python server.py 5000`)*
 Then open your browser at:
-**[http://localhost:8080](http://localhost:8080)**
+**[http://localhost:5000](http://localhost:5000)**
 
 ### Option 2: Running in Native Console Mode (Interactive CLI)
 Simply double click or run:
