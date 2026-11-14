@@ -1,0 +1,30 @@
+=================================================================
+              SMARTSERVE COLLEGE CANTEEN SYSTEM                 
+                   TAX INVOICE & ORDER TOKEN                     
+=================================================================
+ Order ID:       #94915
+ Token Number:   >>> [ TK-102 ] <<<
+ Order Status:   Order Placed
+ Date & Time:    2026-11-05 21:21:55
+ Customer:       Rahul Sharma (Student)
+ Contact No:     9876543210
+-----------------------------------------------------------------
+ Qty | Description                     | Unit Price | Total Price
+-----------------------------------------------------------------
+   1 | Indori Poha with Sev            |      35.00 |      35.00
+   1 | Idli Sambar (2 pcs)             |      40.00 |      40.00
+-----------------------------------------------------------------
+ Subtotal:                                            Rs.    75.00
+ Privilege Discount (Student):       -        Rs.     3.75
+ Canteen GST (5%):                                      Rs.     3.56
+-----------------------------------------------------------------
+ FINAL AMOUNT PAYABLE:                                Rs.    74.81
+=================================================================
+ Payment Method: UPI
+ Transaction ID: REF-686418
+ Payment Status: PAID & VERIFIED
+ Est. Pickup Time: ~9 minutes from order placement
+ Please watch the Live Digital Token Board for 'TK-102'!
+=================================================================
+        Thank you for choosing SmartServe Canteen System!        
+=================================================================

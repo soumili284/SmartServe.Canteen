@@ -479,13 +479,33 @@ class SmartServeHTTPHandler(SimpleHTTPRequestHandler):
         self.send_header("Access-Control-Allow-Headers", "Content-Type")
         self.end_headers()
 
-def run_server(port=8080):
-    server_address = ("0.0.0.0", port)
-    httpd = ThreadingHTTPServer(server_address, SmartServeHTTPHandler)
+def run_server(port=5000):
+    ports_to_try = [port, 5000, 8000, 3000, 8080]
+    # Remove duplicates while preserving order
+    candidate_ports = []
+    for p in ports_to_try:
+        if p not in candidate_ports:
+            candidate_ports.append(p)
+
+    httpd = None
+    chosen_port = None
+    for p in candidate_ports:
+        try:
+            server_address = ("0.0.0.0", p)
+            httpd = ThreadingHTTPServer(server_address, SmartServeHTTPHandler)
+            chosen_port = p
+            break
+        except OSError as e:
+            print(f"[!] Port {p} unavailable ({e}), trying next port...")
+
+    if not httpd:
+        print("[X] Error: Could not bind to any port (5000, 8000, 3000, 8080).")
+        sys.exit(1)
+
     print(f"\n========================================================")
     print(f"  SmartServe Localhost Server Active!                   ")
-    print(f"  URL: http://localhost:{port}                         ")
-    print(f"  Direct Token Board: http://localhost:{port}#board     ")
+    print(f"  URL: http://localhost:{chosen_port}                  ")
+    print(f"  Direct Token Board: http://localhost:{chosen_port}#board")
     print(f"========================================================\n")
     try:
         httpd.serve_forever()
@@ -494,7 +514,7 @@ def run_server(port=8080):
         httpd.server_close()
 
 if __name__ == "__main__":
-    port = 8080
+    port = 5000
     if len(sys.argv) > 1 and sys.argv[1].isdigit():
         port = int(sys.argv[1])
     run_server(port)

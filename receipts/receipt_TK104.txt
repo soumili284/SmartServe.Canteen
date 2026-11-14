@@ -1,0 +1,29 @@
+=================================================================
+              SMARTSERVE COLLEGE CANTEEN SYSTEM                 
+                   TAX INVOICE & ORDER TOKEN                     
+=================================================================
+ Order ID:       #93046
+ Token Number:   >>> [ TK-104 ] <<<
+ Order Status:   Order Placed
+ Date & Time:    2026-11-13 23:17:26
+ Customer:       Soumili Banerjee (Student)
+ Contact No:     9876543210
+-----------------------------------------------------------------
+ Qty | Description                     | Unit Price | Total Price
+-----------------------------------------------------------------
+   3 | Idli Sambar (2 pcs)             |      40.00 |     120.00
+-----------------------------------------------------------------
+ Subtotal:                                            Rs.   120.00
+ Privilege Discount (Student):       -        Rs.     6.00
+ Canteen GST (5%):                                      Rs.     5.70
+-----------------------------------------------------------------
+ FINAL AMOUNT PAYABLE:                                Rs.   119.70
+=================================================================
+ Payment Method: UPI
+ Transaction ID: REF-547259
+ Payment Status: PAID & VERIFIED
+ Est. Pickup Time: ~11 minutes from order placement
+ Please watch the Live Digital Token Board for 'TK-104'!
+=================================================================
+        Thank you for choosing SmartServe Canteen System!        
+=================================================================

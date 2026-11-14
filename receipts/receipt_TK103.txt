@@ -1,0 +1,29 @@
+=================================================================
+              SMARTSERVE COLLEGE CANTEEN SYSTEM                 
+                   TAX INVOICE & ORDER TOKEN                     
+=================================================================
+ Order ID:       #1029
+ Token Number:   >>> [ TK-103 ] <<<
+ Order Status:   Order Placed
+ Date & Time:    2026-11-05 23:03:49
+ Customer:       Rahul Sharma (Student)
+ Contact No:     9876543210
+-----------------------------------------------------------------
+ Qty | Description                     | Unit Price | Total Price
+-----------------------------------------------------------------
+   1 | Aloo Paratha with Curd          |      50.00 |      50.00
+-----------------------------------------------------------------
+ Subtotal:                                            Rs.    50.00
+ Privilege Discount (Student):       -        Rs.     2.50
+ Canteen GST (5%):                                      Rs.     2.38
+-----------------------------------------------------------------
+ FINAL AMOUNT PAYABLE:                                Rs.    49.88
+=================================================================
+ Payment Method: UPI
+ Transaction ID: REF-744022
+ Payment Status: PAID & VERIFIED
+ Est. Pickup Time: ~7 minutes from order placement
+ Please watch the Live Digital Token Board for 'TK-103'!
+=================================================================
+        Thank you for choosing SmartServe Canteen System!        
+=================================================================
