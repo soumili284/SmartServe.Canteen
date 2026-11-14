@@ -9,12 +9,11 @@
   <!-- Google Fonts & FontAwesome -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
   <script>
     tailwind.config = {
-      darkMode: 'class',
       theme: {
         extend: {
           fontFamily: {
@@ -22,22 +21,26 @@
             mono: ['"JetBrains Mono"', 'monospace'],
           },
           colors: {
-            brand: {
-              50: '#ecfdf5',
-              100: '#d1fae5',
-              400: '#34d399',
-              500: '#10b981',
-              600: '#059669',
-              700: '#047857',
-              800: '#065f46',
-              900: '#064e3b',
-            },
-            canteen: {
-              orange: '#f97316',
-              amber: '#f59e0b',
-              dark: '#0f172a',
-              card: '#1e293b',
-              border: '#334155',
+            capy: {
+              butter: '#FEE799',
+              cream: '#FFFDF7',
+              creambg: '#FFF9ED',
+              card: '#FFFDF9',
+              border: '#EAD1B2',
+              borderdark: '#D4A373',
+              caramel: '#C86A1D',
+              toast: '#D97724',
+              toasthover: '#B85D10',
+              brown: '#9C6B43',
+              espresso: '#3C2415',
+              mocha: '#6B472E',
+              muted: '#8C684E',
+              strawberry: '#F47B89',
+              egg: '#FFB703',
+              matcha: '#2E7D32',
+              matchabg: '#EAF5EA',
+              sauce: '#C62828',
+              saucebg: '#FFEBEE',
             }
           }
         }
@@ -46,10 +49,19 @@
   </script>
 
   <style>
+    body {
+      background-image: url('images/capybara_bg.jpg');
+      background-repeat: repeat;
+      background-size: 260px auto;
+      background-attachment: fixed;
+      background-color: #FEE799;
+      color: #3C2415;
+    }
+
     @keyframes pulse-ring {
-      0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
-      70% { transform: scale(1); box-shadow: 0 0 0 14px rgba(16, 185, 129, 0); }
-      100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+      0% { transform: scale(0.96); box-shadow: 0 0 0 0 rgba(46, 125, 50, 0.6); }
+      70% { transform: scale(1); box-shadow: 0 0 0 14px rgba(46, 125, 50, 0); }
+      100% { transform: scale(0.96); box-shadow: 0 0 0 0 rgba(46, 125, 50, 0); }
     }
     .ready-pulse {
       animation: pulse-ring 2s infinite;
@@ -59,50 +71,50 @@
       height: 6px;
     }
     .custom-scrollbar::-webkit-scrollbar-track {
-      background: #0f172a;
+      background: #FFF3D6;
     }
     .custom-scrollbar::-webkit-scrollbar-thumb {
-      background: #334155;
+      background: #D4A373;
       border-radius: 9999px;
     }
     .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-      background: #475569;
+      background: #B87E54;
     }
   </style>
 </head>
-<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col font-sans selection:bg-brand-500 selection:text-white">
+<body class="min-h-screen flex flex-col font-sans selection:bg-amber-500 selection:text-white">
 
   <!-- TOP NAVIGATION BAR -->
-  <header class="sticky top-0 z-40 bg-slate-900/90 backdrop-blur-md border-b border-slate-800">
+  <header class="sticky top-0 z-40 bg-[#FFFDF7]/95 backdrop-blur-md border-b border-[#EAD1B2] shadow-sm">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
       
       <!-- Logo -->
       <div class="flex items-center gap-3 cursor-pointer" onclick="switchTab('menu')">
-        <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-brand-600 to-amber-500 flex items-center justify-center text-white shadow-lg shadow-brand-500/20">
+        <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-[#D97724] to-[#F59E0B] flex items-center justify-center text-white shadow-md shadow-amber-500/25">
           <i class="fa-solid fa-utensils text-xl"></i>
         </div>
         <div>
           <div class="flex items-center gap-2">
-            <span class="text-2xl font-extrabold tracking-tight bg-gradient-to-r from-white via-slate-100 to-slate-400 bg-clip-text text-transparent">SmartServe</span>
-            <span class="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full bg-brand-500/10 text-brand-400 border border-brand-500/30">C++ OOP</span>
+            <span class="text-2xl font-extrabold tracking-tight text-[#3C2415]">SmartServe</span>
+            <span class="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full bg-[#FFF0E0] text-[#D97724] border border-[#FFD8B2]">🐾 Capybara Canteen</span>
           </div>
-          <p class="text-xs text-slate-400">Campus Digital Canteen & Live Token System</p>
+          <p class="text-xs text-[#6B472E]">Campus Digital Canteen & Live Token System</p>
         </div>
       </div>
 
       <!-- Navigation Tabs -->
-      <nav class="hidden md:flex items-center gap-1 bg-slate-800/60 p-1.5 rounded-2xl border border-slate-700/60 text-sm font-medium">
-        <button id="nav-menu" onclick="switchTab('menu')" class="px-4 py-2 rounded-xl transition-all duration-200 bg-brand-600 text-white shadow-sm flex items-center gap-2">
+      <nav class="hidden md:flex items-center gap-1 bg-[#FFF6E5] p-1.5 rounded-2xl border border-[#EAD1B2] text-sm font-semibold">
+        <button id="nav-menu" onclick="switchTab('menu')" class="px-4 py-2 rounded-xl transition-all duration-200 bg-gradient-to-r from-[#D97724] to-[#E08A38] text-white shadow-md flex items-center gap-2">
           <i class="fa-solid fa-book-open"></i> Menu
         </button>
-        <button id="nav-board" onclick="switchTab('board')" class="px-4 py-2 rounded-xl transition-all duration-200 text-slate-300 hover:text-white hover:bg-slate-700/50 flex items-center gap-2">
+        <button id="nav-board" onclick="switchTab('board')" class="px-4 py-2 rounded-xl transition-all duration-200 text-[#6B472E] hover:text-[#3C2415] hover:bg-[#FFEED4] flex items-center gap-2">
           <i class="fa-solid fa-tv"></i> Live Token Board
-          <span id="nav-active-count" class="px-2 py-0.5 rounded-full text-[11px] bg-amber-500/20 text-amber-300 border border-amber-500/30 font-mono">0</span>
+          <span id="nav-active-count" class="px-2 py-0.5 rounded-full text-[11px] bg-[#FFE099] text-[#7A4510] font-mono font-bold">0</span>
         </button>
-        <button id="nav-track" onclick="switchTab('track')" class="px-4 py-2 rounded-xl transition-all duration-200 text-slate-300 hover:text-white hover:bg-slate-700/50 flex items-center gap-2">
+        <button id="nav-track" onclick="switchTab('track')" class="px-4 py-2 rounded-xl transition-all duration-200 text-[#6B472E] hover:text-[#3C2415] hover:bg-[#FFEED4] flex items-center gap-2">
           <i class="fa-solid fa-magnifying-glass"></i> Track Token
         </button>
-        <button id="nav-kitchen" onclick="switchTab('kitchen')" class="px-4 py-2 rounded-xl transition-all duration-200 text-slate-300 hover:text-white hover:bg-slate-700/50 flex items-center gap-2">
+        <button id="nav-kitchen" onclick="switchTab('kitchen')" class="px-4 py-2 rounded-xl transition-all duration-200 text-[#6B472E] hover:text-[#3C2415] hover:bg-[#FFEED4] flex items-center gap-2">
           <i class="fa-solid fa-kitchen-set"></i> Kitchen Portal
         </button>
       </nav>
@@ -110,22 +122,22 @@
       <!-- User Profile & Cart Button -->
       <div class="flex items-center gap-3">
         <!-- Profile Pill -->
-        <button onclick="openProfileModal()" class="hidden sm:flex items-center gap-2.5 px-3 py-1.5 rounded-xl bg-slate-800 border border-slate-700/80 hover:border-slate-600 transition text-left">
-          <div class="w-8 h-8 rounded-lg bg-indigo-500/20 text-indigo-400 flex items-center justify-center font-bold text-xs" id="nav-user-avatar">
+        <button onclick="openProfileModal()" class="hidden sm:flex items-center gap-2.5 px-3 py-1.5 rounded-xl bg-[#FFF6E5] border border-[#EAD1B2] hover:border-[#D4A373] transition text-left shadow-sm">
+          <div class="w-8 h-8 rounded-lg bg-[#FFE799] text-[#8C4F18] flex items-center justify-center font-bold text-xs" id="nav-user-avatar">
             RS
           </div>
           <div class="text-xs">
-            <p class="font-bold text-slate-200 leading-tight" id="nav-user-name">Rahul Sharma</p>
-            <p class="text-[10px] text-emerald-400 font-semibold" id="nav-user-role">Student (5% OFF)</p>
+            <p class="font-bold text-[#3C2415] leading-tight" id="nav-user-name">Rahul Sharma</p>
+            <p class="text-[10px] text-[#2E7D32] font-semibold" id="nav-user-role">Student (5% OFF)</p>
           </div>
-          <i class="fa-solid fa-chevron-down text-[10px] text-slate-400 ml-1"></i>
+          <i class="fa-solid fa-chevron-down text-[10px] text-[#8C684E] ml-1"></i>
         </button>
 
         <!-- Cart Button -->
-        <button onclick="toggleCartDrawer()" class="relative px-4 py-2.5 rounded-xl bg-brand-600 hover:bg-brand-500 active:scale-95 text-white font-semibold flex items-center gap-2.5 transition shadow-lg shadow-brand-600/30">
+        <button onclick="toggleCartDrawer()" class="relative px-4 py-2.5 rounded-xl bg-gradient-to-r from-[#D97724] to-[#C8671B] hover:from-[#C06216] hover:to-[#B35811] active:scale-95 text-white font-bold flex items-center gap-2.5 transition shadow-lg shadow-amber-600/30">
           <i class="fa-solid fa-bag-shopping text-base"></i>
-          <span class="hidden sm:inline text-sm">Cart</span>
-          <span id="header-cart-count" class="w-6 h-6 rounded-full bg-white text-brand-700 text-xs font-extrabold flex items-center justify-center shadow-sm">0</span>
+          <span class="hidden sm:inline text-sm">Tray</span>
+          <span id="header-cart-count" class="w-6 h-6 rounded-full bg-white text-[#C8671B] text-xs font-black flex items-center justify-center shadow-sm">0</span>
         </button>
       </div>
 
@@ -139,80 +151,80 @@
     <section id="tab-menu" class="space-y-6">
       
       <!-- Hero / Notice Banner -->
-      <div class="relative overflow-hidden rounded-3xl bg-gradient-to-r from-emerald-900/60 via-slate-900 to-amber-900/40 p-6 sm:p-8 border border-emerald-800/40 shadow-2xl">
+      <div class="relative overflow-hidden rounded-3xl bg-gradient-to-r from-[#FFF6DE]/95 via-[#FFFDF7]/95 to-[#FFECC0]/95 p-6 sm:p-8 border border-[#E8CDAC] shadow-xl text-[#3C2415]">
         <div class="relative z-10 max-w-2xl space-y-3">
-          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 text-xs font-semibold">
-            <i class="fa-solid fa-bolt"></i> Express College Canteen Kiosk
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#FFE799] border border-[#F0D58A] text-[#7A4510] text-xs font-bold shadow-sm">
+            <span>🐾</span> Capybara Campus Express Dining
           </div>
-          <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-white leading-tight">
-            Order Canteen Meals, <br class="hidden sm:inline">Skip the Queues with <span class="text-brand-400">Tokens</span>.
+          <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-[#3C2415] leading-tight">
+            Cozy Canteen Meals, <br class="hidden sm:inline">Skip Queues with <span class="text-[#D97724]">Live Tokens</span>.
           </h1>
-          <p class="text-sm text-slate-300">
-            Select your favorite snacks, authentic South Indian breakfast, thali meals or student combos. Receive your token number instantly upon payment!
+          <p class="text-sm text-[#6B472E]">
+            Enjoy freshly prepared South Indian dosas, hot chai, crunchy snacks, thali bowls, and student hunger combos. Receive your token number instantly!
           </p>
           <div class="flex flex-wrap items-center gap-3 pt-2 text-xs">
-            <span class="px-2.5 py-1 rounded-lg bg-slate-800/80 border border-slate-700 text-slate-300 flex items-center gap-1.5">
-              <i class="fa-solid fa-percent text-emerald-400"></i> Student 5% | Faculty 10% Off
+            <span class="px-2.5 py-1 rounded-xl bg-white/90 border border-[#EAD1B2] text-[#6B472E] font-medium flex items-center gap-1.5 shadow-sm">
+              <i class="fa-solid fa-percent text-[#2E7D32]"></i> Student 5% | Faculty 10% Off
             </span>
-            <span class="px-2.5 py-1 rounded-lg bg-slate-800/80 border border-slate-700 text-slate-300 flex items-center gap-1.5">
-              <i class="fa-solid fa-qrcode text-amber-400"></i> Instant UPI, Wallet & Cash
+            <span class="px-2.5 py-1 rounded-xl bg-white/90 border border-[#EAD1B2] text-[#6B472E] font-medium flex items-center gap-1.5 shadow-sm">
+              <i class="fa-solid fa-qrcode text-[#D97724]"></i> Instant UPI QR & SmartCard
             </span>
-            <span class="px-2.5 py-1 rounded-lg bg-slate-800/80 border border-slate-700 text-slate-300 flex items-center gap-1.5">
-              <i class="fa-solid fa-receipt text-indigo-400"></i> Auto Tax Invoices Saved
+            <span class="px-2.5 py-1 rounded-xl bg-white/90 border border-[#EAD1B2] text-[#6B472E] font-medium flex items-center gap-1.5 shadow-sm">
+              <i class="fa-solid fa-receipt text-[#8C4F18]"></i> Auto-Generated Tax Invoices
             </span>
           </div>
         </div>
       </div>
 
       <!-- Search & Filters Toolbar -->
-      <div class="bg-slate-900 p-4 rounded-2xl border border-slate-800 space-y-4 shadow-lg">
+      <div class="bg-[#FFFDF7]/95 backdrop-blur-md p-4 rounded-3xl border border-[#EAD1B2] space-y-4 shadow-xl">
         <div class="flex flex-col md:flex-row gap-3 items-stretch md:items-center justify-between">
           
           <!-- Search input -->
           <div class="relative flex-1">
-            <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400"></i>
-            <input type="text" id="menu-search-input" oninput="filterMenu()" placeholder="Search samosa, dosa, thali, coffee, combo..." 
-                   class="w-full pl-10 pr-4 py-2.5 rounded-xl bg-slate-800/90 border border-slate-700 text-sm text-slate-100 placeholder-slate-400 focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500">
+            <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-[#8C684E]"></i>
+            <input type="text" id="menu-search-input" oninput="filterMenu()" placeholder="Search dosa, samosa, thali, coffee, combo..." 
+                   class="w-full pl-10 pr-4 py-2.5 rounded-2xl bg-white border border-[#EAD1B2] text-sm text-[#3C2415] placeholder-[#9C7960] focus:outline-none focus:border-[#D97724] focus:ring-1 focus:ring-[#D97724] shadow-sm">
           </div>
 
           <!-- Dietary Filter Buttons -->
-          <div class="flex items-center gap-1.5 bg-slate-800/80 p-1 rounded-xl border border-slate-700/80 text-xs font-semibold overflow-x-auto">
-            <button onclick="setDietaryFilter('ALL')" id="diet-ALL" class="px-3 py-1.5 rounded-lg bg-brand-600 text-white transition">All Diets</button>
-            <button onclick="setDietaryFilter('VEG')" id="diet-VEG" class="px-3 py-1.5 rounded-lg text-slate-300 hover:text-white transition flex items-center gap-1">
-              <span class="w-2 h-2 rounded-full bg-emerald-400"></span> Veg
+          <div class="flex items-center gap-1.5 bg-[#FFF6E5] p-1.5 rounded-2xl border border-[#EAD1B2] text-xs font-bold overflow-x-auto">
+            <button onclick="setDietaryFilter('ALL')" id="diet-ALL" class="px-3 py-1.5 rounded-xl bg-gradient-to-r from-[#D97724] to-[#E08A38] text-white shadow-sm transition">All Diets</button>
+            <button onclick="setDietaryFilter('VEG')" id="diet-VEG" class="px-3 py-1.5 rounded-xl text-[#2E7D32] hover:bg-[#EAF5EA] transition flex items-center gap-1">
+              <span class="w-2.5 h-2.5 rounded-full bg-[#2E7D32]"></span> Veg
             </button>
-            <button onclick="setDietaryFilter('NON_VEG')" id="diet-NON_VEG" class="px-3 py-1.5 rounded-lg text-slate-300 hover:text-white transition flex items-center gap-1">
-              <span class="w-2 h-2 rounded-full bg-red-400"></span> Non-Veg
+            <button onclick="setDietaryFilter('NON_VEG')" id="diet-NON_VEG" class="px-3 py-1.5 rounded-xl text-[#C62828] hover:bg-[#FFEBEE] transition flex items-center gap-1">
+              <span class="w-2.5 h-2.5 rounded-full bg-[#C62828]"></span> Non-Veg
             </button>
-            <button onclick="setDietaryFilter('VEGAN')" id="diet-VEGAN" class="px-3 py-1.5 rounded-lg text-slate-300 hover:text-white transition flex items-center gap-1">
-              <span class="w-2 h-2 rounded-full bg-lime-400"></span> Vegan
+            <button onclick="setDietaryFilter('VEGAN')" id="diet-VEGAN" class="px-3 py-1.5 rounded-xl text-[#33691E] hover:bg-[#F1F8E9] transition flex items-center gap-1">
+              <span class="w-2.5 h-2.5 rounded-full bg-[#558B2F]"></span> Vegan
             </button>
           </div>
 
         </div>
 
         <!-- Category Pills -->
-        <div class="flex items-center gap-2 overflow-x-auto pb-1 custom-scrollbar text-xs font-medium">
-          <button onclick="setCategoryFilter(0)" id="cat-0" class="category-pill whitespace-nowrap px-4 py-2 rounded-xl bg-slate-800 text-white border border-brand-500/50 shadow-sm flex items-center gap-1.5">
+        <div class="flex items-center gap-2 overflow-x-auto pb-1 custom-scrollbar text-xs font-semibold">
+          <button onclick="setCategoryFilter(0)" id="cat-0" class="category-pill whitespace-nowrap px-4 py-2 rounded-2xl bg-gradient-to-r from-[#D97724] to-[#E08A38] text-white shadow-sm flex items-center gap-1.5">
             <i class="fa-solid fa-border-all"></i> All Categories
           </button>
-          <button onclick="setCategoryFilter(1)" id="cat-1" class="category-pill whitespace-nowrap px-4 py-2 rounded-xl bg-slate-800/60 text-slate-300 border border-slate-700/60 hover:text-white flex items-center gap-1.5">
-            <i class="fa-solid fa-egg text-amber-400"></i> Breakfast
+          <button onclick="setCategoryFilter(1)" id="cat-1" class="category-pill whitespace-nowrap px-4 py-2 rounded-2xl bg-[#FFF6E5] text-[#6B472E] border border-[#EAD1B2] hover:bg-[#FFEED4] hover:text-[#3C2415] flex items-center gap-1.5">
+            <i class="fa-solid fa-egg text-amber-500"></i> Breakfast
           </button>
-          <button onclick="setCategoryFilter(2)" id="cat-2" class="category-pill whitespace-nowrap px-4 py-2 rounded-xl bg-slate-800/60 text-slate-300 border border-slate-700/60 hover:text-white flex items-center gap-1.5">
-            <i class="fa-solid fa-bowl-rice text-emerald-400"></i> Main Course
+          <button onclick="setCategoryFilter(2)" id="cat-2" class="category-pill whitespace-nowrap px-4 py-2 rounded-2xl bg-[#FFF6E5] text-[#6B472E] border border-[#EAD1B2] hover:bg-[#FFEED4] hover:text-[#3C2415] flex items-center gap-1.5">
+            <i class="fa-solid fa-bowl-rice text-[#2E7D32]"></i> Main Course
           </button>
-          <button onclick="setCategoryFilter(3)" id="cat-3" class="category-pill whitespace-nowrap px-4 py-2 rounded-xl bg-slate-800/60 text-slate-300 border border-slate-700/60 hover:text-white flex items-center gap-1.5">
-            <i class="fa-solid fa-cookie-bite text-orange-400"></i> Snacks
+          <button onclick="setCategoryFilter(3)" id="cat-3" class="category-pill whitespace-nowrap px-4 py-2 rounded-2xl bg-[#FFF6E5] text-[#6B472E] border border-[#EAD1B2] hover:bg-[#FFEED4] hover:text-[#3C2415] flex items-center gap-1.5">
+            <i class="fa-solid fa-cookie-bite text-[#D97724]"></i> Snacks
           </button>
-          <button onclick="setCategoryFilter(4)" id="cat-4" class="category-pill whitespace-nowrap px-4 py-2 rounded-xl bg-slate-800/60 text-slate-300 border border-slate-700/60 hover:text-white flex items-center gap-1.5">
-            <i class="fa-solid fa-mug-hot text-cyan-400"></i> Beverages
+          <button onclick="setCategoryFilter(4)" id="cat-4" class="category-pill whitespace-nowrap px-4 py-2 rounded-2xl bg-[#FFF6E5] text-[#6B472E] border border-[#EAD1B2] hover:bg-[#FFEED4] hover:text-[#3C2415] flex items-center gap-1.5">
+            <i class="fa-solid fa-mug-hot text-[#A0673B]"></i> Beverages
           </button>
-          <button onclick="setCategoryFilter(5)" id="cat-5" class="category-pill whitespace-nowrap px-4 py-2 rounded-xl bg-slate-800/60 text-slate-300 border border-slate-700/60 hover:text-white flex items-center gap-1.5">
-            <i class="fa-solid fa-ice-cream text-pink-400"></i> Desserts
+          <button onclick="setCategoryFilter(5)" id="cat-5" class="category-pill whitespace-nowrap px-4 py-2 rounded-2xl bg-[#FFF6E5] text-[#6B472E] border border-[#EAD1B2] hover:bg-[#FFEED4] hover:text-[#3C2415] flex items-center gap-1.5">
+            <i class="fa-solid fa-ice-cream text-pink-500"></i> Desserts
           </button>
-          <button onclick="setCategoryFilter(6)" id="cat-6" class="category-pill whitespace-nowrap px-4 py-2 rounded-xl bg-slate-800/60 text-slate-300 border border-slate-700/60 hover:text-white flex items-center gap-1.5">
-            <i class="fa-solid fa-fire text-amber-500"></i> Student Combos
+          <button onclick="setCategoryFilter(6)" id="cat-6" class="category-pill whitespace-nowrap px-4 py-2 rounded-2xl bg-[#FFF6E5] text-[#6B472E] border border-[#EAD1B2] hover:bg-[#FFEED4] hover:text-[#3C2415] flex items-center gap-1.5">
+            <i class="fa-solid fa-gift text-amber-600"></i> Student Combos
           </button>
         </div>
       </div>
@@ -228,19 +240,19 @@
     <section id="tab-board" class="hidden space-y-6">
       
       <!-- Digital Display Board Header -->
-      <div class="rounded-3xl bg-slate-900 border border-slate-800 p-6 shadow-2xl flex flex-col md:flex-row items-center justify-between gap-4">
+      <div class="rounded-3xl bg-[#FFFDF7]/95 backdrop-blur-md border border-[#EAD1B2] p-6 shadow-xl flex flex-col md:flex-row items-center justify-between gap-4 text-[#3C2415]">
         <div>
           <div class="flex items-center gap-3">
-            <span class="w-3.5 h-3.5 rounded-full bg-emerald-500 animate-ping"></span>
-            <h2 class="text-2xl font-extrabold tracking-tight text-white">LIVE DIGITAL TOKEN BOARD</h2>
+            <span class="w-3.5 h-3.5 rounded-full bg-[#2E7D32] animate-ping"></span>
+            <h2 class="text-2xl font-black tracking-tight text-[#3C2415]">LIVE DIGITAL TOKEN BOARD</h2>
           </div>
-          <p class="text-xs text-slate-400 mt-1">Simulates the real-time cafeteria LED status screens. Updated automatically every 3 seconds.</p>
+          <p class="text-xs text-[#6B472E] mt-1">Real-time canteen kitchen queue. Refreshes automatically every 3 seconds.</p>
         </div>
         <div class="flex items-center gap-2">
-          <button onclick="fetchTokens()" class="px-3 py-1.5 rounded-xl bg-slate-800 border border-slate-700 hover:bg-slate-700 text-xs font-semibold text-slate-200 flex items-center gap-1.5">
+          <button onclick="fetchTokens()" class="px-3.5 py-2 rounded-xl bg-[#FFF6E5] border border-[#EAD1B2] hover:bg-[#FFEED4] text-xs font-bold text-[#6B472E] flex items-center gap-1.5 shadow-sm">
             <i class="fa-solid fa-rotate"></i> Refresh
           </button>
-          <button onclick="switchTab('kitchen')" class="px-3.5 py-1.5 rounded-xl bg-amber-500/20 border border-amber-500/40 text-amber-300 text-xs font-semibold flex items-center gap-1.5 hover:bg-amber-500/30">
+          <button onclick="switchTab('kitchen')" class="px-4 py-2 rounded-xl bg-gradient-to-r from-[#D97724] to-[#E08A38] text-white text-xs font-bold flex items-center gap-1.5 shadow-md shadow-amber-600/20">
             <i class="fa-solid fa-kitchen-set"></i> Kitchen Staff Advance
           </button>
         </div>
@@ -250,12 +262,12 @@
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
         
         <!-- COLUMN 1: PREPARING IN KITCHEN -->
-        <div class="rounded-3xl bg-slate-900 border border-amber-500/30 p-5 space-y-4 shadow-xl">
-          <div class="flex items-center justify-between pb-3 border-b border-slate-800">
-            <div class="flex items-center gap-2 text-amber-400 font-bold text-sm tracking-wide uppercase">
+        <div class="rounded-3xl bg-[#FFFDF7]/95 backdrop-blur-md border border-amber-300 p-5 space-y-4 shadow-lg">
+          <div class="flex items-center justify-between pb-3 border-b border-[#F0DFC8]">
+            <div class="flex items-center gap-2 text-[#B85D10] font-black text-sm tracking-wide uppercase">
               <i class="fa-solid fa-fire-burner text-base"></i> Cooking In Kitchen
             </div>
-            <span id="board-cooking-count" class="px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 font-mono text-xs font-bold">0</span>
+            <span id="board-cooking-count" class="px-2.5 py-0.5 rounded-full bg-[#FFE799] text-[#7A4510] font-mono text-xs font-extrabold">0</span>
           </div>
           <div id="board-cooking-list" class="space-y-3 min-h-[300px]">
             <!-- Rendered via JS -->
@@ -263,13 +275,12 @@
         </div>
 
         <!-- COLUMN 2: READY FOR PICKUP -->
-        <div class="rounded-3xl bg-slate-900 border border-emerald-500/40 p-5 space-y-4 shadow-xl relative overflow-hidden">
-          <div class="absolute -right-8 -top-8 w-32 h-32 bg-emerald-500/10 rounded-full blur-2xl pointer-events-none"></div>
-          <div class="flex items-center justify-between pb-3 border-b border-slate-800">
-            <div class="flex items-center gap-2 text-emerald-400 font-bold text-sm tracking-wide uppercase">
+        <div class="rounded-3xl bg-[#EAF7ED]/95 backdrop-blur-md border-2 border-[#2E7D32] p-5 space-y-4 shadow-xl relative overflow-hidden">
+          <div class="flex items-center justify-between pb-3 border-b border-[#C8E6C9]">
+            <div class="flex items-center gap-2 text-[#2E7D32] font-black text-sm tracking-wide uppercase">
               <i class="fa-solid fa-bell text-base animate-bounce"></i> Ready for Pickup!
             </div>
-            <span id="board-ready-count" class="px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 font-mono text-xs font-bold">0</span>
+            <span id="board-ready-count" class="px-2.5 py-0.5 rounded-full bg-[#C8E6C9] text-[#1B5E20] font-mono text-xs font-extrabold">0</span>
           </div>
           <div id="board-ready-list" class="space-y-3 min-h-[300px]">
             <!-- Rendered via JS -->
@@ -277,12 +288,12 @@
         </div>
 
         <!-- COLUMN 3: RECENTLY COMPLETED -->
-        <div class="rounded-3xl bg-slate-900 border border-slate-800 p-5 space-y-4 shadow-xl">
-          <div class="flex items-center justify-between pb-3 border-b border-slate-800">
-            <div class="flex items-center gap-2 text-slate-400 font-bold text-sm tracking-wide uppercase">
+        <div class="rounded-3xl bg-[#FFFDF7]/95 backdrop-blur-md border border-[#EAD1B2] p-5 space-y-4 shadow-lg">
+          <div class="flex items-center justify-between pb-3 border-b border-[#F0DFC8]">
+            <div class="flex items-center gap-2 text-[#8C684E] font-black text-sm tracking-wide uppercase">
               <i class="fa-solid fa-circle-check text-base"></i> Collected / Done
             </div>
-            <span id="board-completed-count" class="px-2.5 py-0.5 rounded-full bg-slate-800 text-slate-300 font-mono text-xs font-bold">0</span>
+            <span id="board-completed-count" class="px-2.5 py-0.5 rounded-full bg-[#FFF0DE] text-[#8C4F18] font-mono text-xs font-extrabold">0</span>
           </div>
           <div id="board-completed-list" class="space-y-3 min-h-[300px]">
             <!-- Rendered via JS -->
@@ -295,22 +306,22 @@
 
     <!-- TAB 3: TRACK TOKEN -->
     <section id="tab-track" class="hidden max-w-2xl mx-auto space-y-6">
-      <div class="rounded-3xl bg-slate-900 border border-slate-800 p-6 sm:p-8 shadow-2xl space-y-6">
+      <div class="rounded-3xl bg-[#FFFDF7]/95 backdrop-blur-md border border-[#EAD1B2] p-6 sm:p-8 shadow-xl space-y-6 text-[#3C2415]">
         <div class="text-center space-y-2">
-          <div class="w-14 h-14 rounded-2xl bg-brand-500/20 text-brand-400 mx-auto flex items-center justify-center text-2xl">
+          <div class="w-14 h-14 rounded-2xl bg-[#FFE799] text-[#8C4F18] mx-auto flex items-center justify-center text-2xl shadow-sm">
             <i class="fa-solid fa-ticket"></i>
           </div>
-          <h2 class="text-2xl font-extrabold text-white">Track Order by Token</h2>
-          <p class="text-xs text-slate-400">Enter the token number from your bill receipt to check live kitchen status.</p>
+          <h2 class="text-2xl font-black text-[#3C2415]">Track Order by Token</h2>
+          <p class="text-xs text-[#6B472E]">Enter your token number to view kitchen preparation progress in real-time.</p>
         </div>
 
         <div class="flex gap-2">
           <div class="relative flex-1">
-            <span class="absolute left-4 top-1/2 -translate-y-1/2 font-mono font-bold text-slate-400 text-sm">TK-</span>
+            <span class="absolute left-4 top-1/2 -translate-y-1/2 font-mono font-bold text-[#8C684E] text-sm">TK-</span>
             <input type="number" id="track-token-input" placeholder="101" 
-                   class="w-full pl-12 pr-4 py-3 rounded-2xl bg-slate-800 border border-slate-700 text-white font-mono text-lg font-bold focus:outline-none focus:border-brand-500">
+                   class="w-full pl-12 pr-4 py-3 rounded-2xl bg-white border border-[#EAD1B2] text-[#3C2415] font-mono text-lg font-bold focus:outline-none focus:border-[#D97724] shadow-sm">
           </div>
-          <button onclick="trackTokenSubmit()" class="px-6 py-3 rounded-2xl bg-brand-600 hover:bg-brand-500 text-white font-semibold text-sm transition">
+          <button onclick="trackTokenSubmit()" class="px-6 py-3 rounded-2xl bg-gradient-to-r from-[#D97724] to-[#E08A38] text-white font-bold text-sm shadow-md transition">
             Check Status
           </button>
         </div>
@@ -326,41 +337,41 @@
       
       <!-- Analytics Header Cards -->
       <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
-        <div class="rounded-2xl bg-slate-900 border border-slate-800 p-4">
-          <p class="text-xs text-slate-400">Total Gross Revenue</p>
-          <p class="text-2xl font-black text-brand-400 mt-1" id="stat-revenue">Rs. 0.00</p>
+        <div class="rounded-2xl bg-[#FFFDF7]/95 backdrop-blur-md border border-[#EAD1B2] p-4 shadow-md">
+          <p class="text-xs font-semibold text-[#8C684E]">Total Gross Revenue</p>
+          <p class="text-2xl font-black text-[#2E7D32] mt-1" id="stat-revenue">Rs. 0.00</p>
         </div>
-        <div class="rounded-2xl bg-slate-900 border border-slate-800 p-4">
-          <p class="text-xs text-slate-400">Total Orders Fulfilled</p>
-          <p class="text-2xl font-black text-white mt-1" id="stat-orders">0</p>
+        <div class="rounded-2xl bg-[#FFFDF7]/95 backdrop-blur-md border border-[#EAD1B2] p-4 shadow-md">
+          <p class="text-xs font-semibold text-[#8C684E]">Total Orders Fulfilled</p>
+          <p class="text-2xl font-black text-[#3C2415] mt-1" id="stat-orders">0</p>
         </div>
-        <div class="rounded-2xl bg-slate-900 border border-slate-800 p-4">
-          <p class="text-xs text-slate-400">Active Cooking Queue</p>
-          <p class="text-2xl font-black text-amber-400 mt-1" id="stat-active">0</p>
+        <div class="rounded-2xl bg-[#FFFDF7]/95 backdrop-blur-md border border-[#EAD1B2] p-4 shadow-md">
+          <p class="text-xs font-semibold text-[#8C684E]">Active Cooking Queue</p>
+          <p class="text-2xl font-black text-[#D97724] mt-1" id="stat-active">0</p>
         </div>
-        <div class="rounded-2xl bg-slate-900 border border-slate-800 p-4">
-          <p class="text-xs text-slate-400">Student vs Faculty</p>
-          <p class="text-lg font-bold text-slate-200 mt-1" id="stat-ratio">0 / 0</p>
+        <div class="rounded-2xl bg-[#FFFDF7]/95 backdrop-blur-md border border-[#EAD1B2] p-4 shadow-md">
+          <p class="text-xs font-semibold text-[#8C684E]">Student vs Faculty</p>
+          <p class="text-lg font-bold text-[#6B472E] mt-1" id="stat-ratio">0 / 0</p>
         </div>
       </div>
 
       <!-- Live Kitchen Order Queue Table -->
-      <div class="rounded-3xl bg-slate-900 border border-slate-800 p-6 shadow-2xl space-y-4">
+      <div class="rounded-3xl bg-[#FFFDF7]/95 backdrop-blur-md border border-[#EAD1B2] p-6 shadow-xl space-y-4">
         <div class="flex items-center justify-between">
           <div>
-            <h3 class="text-lg font-bold text-white flex items-center gap-2">
-              <i class="fa-solid fa-list-check text-brand-400"></i> Active Kitchen Queue Dispatcher
+            <h3 class="text-lg font-bold text-[#3C2415] flex items-center gap-2">
+              <i class="fa-solid fa-list-check text-[#D97724]"></i> Active Kitchen Queue Dispatcher
             </h3>
-            <p class="text-xs text-slate-400">Advance order token stages: Placed &rarr; Preparing &rarr; Ready for Pickup &rarr; Completed</p>
+            <p class="text-xs text-[#6B472E]">Advance token stages: Placed &rarr; Preparing &rarr; Ready for Pickup &rarr; Completed</p>
           </div>
-          <button onclick="fetchAnalytics()" class="px-3 py-1.5 rounded-xl bg-slate-800 border border-slate-700 hover:bg-slate-700 text-xs font-semibold text-slate-200">
+          <button onclick="fetchAnalytics()" class="px-3 py-1.5 rounded-xl bg-[#FFF6E5] border border-[#EAD1B2] hover:bg-[#FFEED4] text-xs font-bold text-[#6B472E]">
             <i class="fa-solid fa-rotate"></i> Sync
           </button>
         </div>
 
         <div class="overflow-x-auto">
           <table class="w-full text-left text-sm">
-            <thead class="text-xs uppercase bg-slate-800/80 text-slate-400 border-b border-slate-700">
+            <thead class="text-xs uppercase bg-[#FFF6E5] text-[#8C684E] border-b border-[#EAD1B2]">
               <tr>
                 <th class="px-4 py-3">Token</th>
                 <th class="px-4 py-3">Customer</th>
@@ -370,7 +381,7 @@
                 <th class="px-4 py-3 text-right">Dispatch Action</th>
               </tr>
             </thead>
-            <tbody id="kitchen-table-body" class="divide-y divide-slate-800">
+            <tbody id="kitchen-table-body" class="divide-y divide-[#F0DEC7]">
               <!-- Populated via JS -->
             </tbody>
           </table>
@@ -382,21 +393,21 @@
   </main>
 
   <!-- CART SLIDE-OVER DRAWER -->
-  <div id="cart-drawer-overlay" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 hidden transition-opacity" onclick="toggleCartDrawer()"></div>
-  <aside id="cart-drawer" class="fixed right-0 top-0 bottom-0 w-full sm:w-[480px] bg-slate-900 border-l border-slate-800 z-50 translate-x-full transition-transform duration-300 flex flex-col shadow-2xl">
+  <div id="cart-drawer-overlay" class="fixed inset-0 bg-[#3C2415]/50 backdrop-blur-sm z-50 hidden transition-opacity" onclick="toggleCartDrawer()"></div>
+  <aside id="cart-drawer" class="fixed right-0 top-0 bottom-0 w-full sm:w-[480px] bg-[#FFFDF7] border-l border-[#EAD1B2] z-50 translate-x-full transition-transform duration-300 flex flex-col shadow-2xl text-[#3C2415]">
     
     <!-- Drawer Header -->
-    <div class="p-5 border-b border-slate-800 flex items-center justify-between">
+    <div class="p-5 border-b border-[#EAD1B2] flex items-center justify-between bg-[#FFF9EC]">
       <div class="flex items-center gap-3">
-        <div class="w-10 h-10 rounded-xl bg-brand-500/20 text-brand-400 flex items-center justify-center">
+        <div class="w-10 h-10 rounded-xl bg-[#FFE799] text-[#8C4F18] flex items-center justify-center shadow-sm">
           <i class="fa-solid fa-bag-shopping"></i>
         </div>
         <div>
-          <h3 class="font-extrabold text-white text-base">Your Dining Cart</h3>
-          <p class="text-xs text-slate-400" id="cart-items-count-label">0 items added</p>
+          <h3 class="font-black text-[#3C2415] text-base">Your Dining Tray</h3>
+          <p class="text-xs text-[#6B472E]" id="cart-items-count-label">0 items added</p>
         </div>
       </div>
-      <button onclick="toggleCartDrawer()" class="w-8 h-8 rounded-lg bg-slate-800 text-slate-400 hover:text-white flex items-center justify-center">
+      <button onclick="toggleCartDrawer()" class="w-8 h-8 rounded-lg bg-white border border-[#EAD1B2] text-[#8C684E] hover:text-[#3C2415] flex items-center justify-center">
         <i class="fa-solid fa-xmark"></i>
       </button>
     </div>
@@ -407,48 +418,48 @@
     </div>
 
     <!-- Promo Coupon Section -->
-    <div class="px-5 py-3 border-t border-slate-800 bg-slate-900/50 space-y-2">
+    <div class="px-5 py-3 border-t border-[#EAD1B2] bg-[#FFF9EC] space-y-2">
       <div class="flex gap-2">
         <input type="text" id="coupon-input" placeholder="Coupon Code (e.g. CAMPUS50)" 
-               class="flex-1 px-3 py-2 rounded-xl bg-slate-800 border border-slate-700 text-xs font-mono uppercase text-white focus:outline-none focus:border-brand-500">
-        <button onclick="applyCouponCode()" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-600 text-xs font-semibold text-slate-100 transition">
+               class="flex-1 px-3 py-2 rounded-xl bg-white border border-[#EAD1B2] text-xs font-mono uppercase text-[#3C2415] focus:outline-none focus:border-[#D97724]">
+        <button onclick="applyCouponCode()" class="px-4 py-2 rounded-xl bg-[#D97724] hover:bg-[#B85D10] text-xs font-bold text-white transition shadow-sm">
           Apply
         </button>
       </div>
       <div class="flex gap-1.5 flex-wrap text-[10px]">
-        <button onclick="quickApplyCoupon('CAMPUS50')" class="px-2 py-0.5 rounded bg-brand-500/10 text-brand-300 border border-brand-500/30 hover:bg-brand-500/20">CAMPUS50 (Rs. 50 off on &ge;200)</button>
-        <button onclick="quickApplyCoupon('WELCOME10')" class="px-2 py-0.5 rounded bg-amber-500/10 text-amber-300 border border-amber-500/30 hover:bg-amber-500/20">WELCOME10 (10% extra)</button>
+        <button onclick="quickApplyCoupon('CAMPUS50')" class="px-2 py-0.5 rounded-lg bg-[#FFE799] text-[#7A4510] border border-[#F0D58A] hover:bg-[#FCD870] font-bold">CAMPUS50 (Rs. 50 off on &ge;200)</button>
+        <button onclick="quickApplyCoupon('WELCOME10')" class="px-2 py-0.5 rounded-lg bg-[#FFF0DE] text-[#B85D10] border border-[#FFD8B2] hover:bg-[#FFE3C4] font-bold">WELCOME10 (10% extra)</button>
       </div>
-      <p id="coupon-feedback" class="text-xs hidden"></p>
+      <p id="coupon-feedback" class="text-xs hidden font-bold"></p>
     </div>
 
     <!-- Financial Breakdown & Checkout -->
-    <div class="p-5 border-t border-slate-800 bg-slate-950 space-y-4">
+    <div class="p-5 border-t border-[#EAD1B2] bg-[#FFF6E5] space-y-4">
       <div class="space-y-1.5 text-xs">
-        <div class="flex justify-between text-slate-400">
+        <div class="flex justify-between text-[#6B472E]">
           <span>Subtotal</span>
-          <span class="font-mono text-slate-200" id="cart-subtotal">Rs. 0.00</span>
+          <span class="font-mono font-bold text-[#3C2415]" id="cart-subtotal">Rs. 0.00</span>
         </div>
-        <div class="flex justify-between text-emerald-400">
+        <div class="flex justify-between text-[#2E7D32]">
           <span id="cart-role-discount-label">Role Privilege Discount (5%)</span>
-          <span class="font-mono" id="cart-role-discount">- Rs. 0.00</span>
+          <span class="font-mono font-bold" id="cart-role-discount">- Rs. 0.00</span>
         </div>
-        <div id="cart-coupon-row" class="flex justify-between text-amber-400 hidden">
+        <div id="cart-coupon-row" class="flex justify-between text-[#D97724] hidden">
           <span id="cart-coupon-label">Coupon Discount</span>
-          <span class="font-mono" id="cart-coupon-discount">- Rs. 0.00</span>
+          <span class="font-mono font-bold" id="cart-coupon-discount">- Rs. 0.00</span>
         </div>
-        <div class="flex justify-between text-slate-400">
+        <div class="flex justify-between text-[#6B472E]">
           <span>Canteen GST (5%)</span>
-          <span class="font-mono text-slate-200" id="cart-tax">Rs. 0.00</span>
+          <span class="font-mono text-[#3C2415]" id="cart-tax">Rs. 0.00</span>
         </div>
-        <div class="flex justify-between text-base font-extrabold text-white pt-2 border-t border-slate-800">
+        <div class="flex justify-between text-base font-black text-[#3C2415] pt-2 border-t border-[#EAD1B2]">
           <span>Total Amount</span>
-          <span class="font-mono text-brand-400 text-lg" id="cart-grandtotal">Rs. 0.00</span>
+          <span class="font-mono text-[#D97724] text-lg font-black" id="cart-grandtotal">Rs. 0.00</span>
         </div>
       </div>
 
       <button onclick="openCheckoutModal()" id="btn-proceed-checkout" disabled
-              class="w-full py-3 rounded-2xl bg-brand-600 hover:bg-brand-500 disabled:opacity-50 disabled:cursor-not-allowed text-white font-bold text-sm shadow-xl shadow-brand-600/30 transition flex items-center justify-center gap-2">
+              class="w-full py-3 rounded-2xl bg-gradient-to-r from-[#D97724] to-[#C8671B] hover:from-[#C06216] hover:to-[#B35811] disabled:opacity-50 disabled:cursor-not-allowed text-white font-extrabold text-sm shadow-xl shadow-amber-600/30 transition flex items-center justify-center gap-2">
         <span>Proceed to Payment</span>
         <i class="fa-solid fa-arrow-right"></i>
       </button>
@@ -457,45 +468,45 @@
   </aside>
 
   <!-- CHECKOUT & PAYMENT MODAL -->
-  <div id="checkout-modal" class="fixed inset-0 bg-slate-950/85 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
-    <div class="bg-slate-900 border border-slate-800 w-full max-w-lg rounded-3xl p-6 sm:p-8 space-y-6 shadow-2xl relative">
-      <button onclick="closeCheckoutModal()" class="absolute right-5 top-5 w-8 h-8 rounded-lg bg-slate-800 text-slate-400 hover:text-white flex items-center justify-center">
+  <div id="checkout-modal" class="fixed inset-0 bg-[#3C2415]/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-[#FFFDF7] border border-[#EAD1B2] w-full max-w-lg rounded-3xl p-6 sm:p-8 space-y-6 shadow-2xl relative text-[#3C2415]">
+      <button onclick="closeCheckoutModal()" class="absolute right-5 top-5 w-8 h-8 rounded-lg bg-[#FFF6E5] border border-[#EAD1B2] text-[#8C684E] hover:text-[#3C2415] flex items-center justify-center">
         <i class="fa-solid fa-xmark"></i>
       </button>
 
       <div class="flex items-center gap-3">
-        <div class="w-12 h-12 rounded-2xl bg-brand-500/20 text-brand-400 flex items-center justify-center text-xl">
+        <div class="w-12 h-12 rounded-2xl bg-[#FFE799] text-[#8C4F18] flex items-center justify-center text-xl shadow-sm">
           <i class="fa-solid fa-credit-card"></i>
         </div>
         <div>
-          <h3 class="text-xl font-bold text-white">Payment & Token Generation</h3>
-          <p class="text-xs text-slate-400">Amount Due: <span class="font-mono font-bold text-brand-400 text-sm" id="checkout-due-amount">Rs. 0.00</span></p>
+          <h3 class="text-xl font-black text-[#3C2415]">Payment & Token Generation</h3>
+          <p class="text-xs text-[#6B472E]">Amount Due: <span class="font-mono font-bold text-[#D97724] text-sm" id="checkout-due-amount">Rs. 0.00</span></p>
         </div>
       </div>
 
       <!-- Payment Method Tabs -->
-      <div class="grid grid-cols-4 gap-2 text-xs font-semibold">
-        <button onclick="setPaymentMethod('UPI')" id="paytab-UPI" class="p-2.5 rounded-xl border border-brand-500 bg-brand-600/20 text-brand-300 flex flex-col items-center gap-1">
+      <div class="grid grid-cols-4 gap-2 text-xs font-bold">
+        <button onclick="setPaymentMethod('UPI')" id="paytab-UPI" class="p-2.5 rounded-2xl border-2 border-[#D97724] bg-[#FFF0E0] text-[#D97724] flex flex-col items-center gap-1">
           <i class="fa-solid fa-qrcode text-base"></i> UPI / QR
         </button>
-        <button onclick="setPaymentMethod('WALLET')" id="paytab-WALLET" class="p-2.5 rounded-xl border border-slate-700 bg-slate-800 text-slate-300 flex flex-col items-center gap-1">
+        <button onclick="setPaymentMethod('WALLET')" id="paytab-WALLET" class="p-2.5 rounded-2xl border border-[#EAD1B2] bg-[#FFF6E5] text-[#6B472E] flex flex-col items-center gap-1">
           <i class="fa-solid fa-wallet text-base"></i> SmartCard
         </button>
-        <button onclick="setPaymentMethod('CASH')" id="paytab-CASH" class="p-2.5 rounded-xl border border-slate-700 bg-slate-800 text-slate-300 flex flex-col items-center gap-1">
+        <button onclick="setPaymentMethod('CASH')" id="paytab-CASH" class="p-2.5 rounded-2xl border border-[#EAD1B2] bg-[#FFF6E5] text-[#6B472E] flex flex-col items-center gap-1">
           <i class="fa-solid fa-money-bill-wave text-base"></i> Cash Desk
         </button>
-        <button onclick="setPaymentMethod('CARD')" id="paytab-CARD" class="p-2.5 rounded-xl border border-slate-700 bg-slate-800 text-slate-300 flex flex-col items-center gap-1">
+        <button onclick="setPaymentMethod('CARD')" id="paytab-CARD" class="p-2.5 rounded-2xl border border-[#EAD1B2] bg-[#FFF6E5] text-[#6B472E] flex flex-col items-center gap-1">
           <i class="fa-solid fa-credit-card text-base"></i> Card
         </button>
       </div>
 
       <!-- Payment Details Box -->
-      <div id="payment-details-view" class="rounded-2xl bg-slate-950 p-4 border border-slate-800 min-h-[160px] flex flex-col justify-center text-center">
+      <div id="payment-details-view" class="rounded-2xl bg-[#FFF8ED] p-4 border border-[#EAD1B2] min-h-[160px] flex flex-col justify-center text-center">
         <!-- Rendered via JS -->
       </div>
 
       <button onclick="confirmOrderAndPay()" id="btn-pay-confirm"
-              class="w-full py-3.5 rounded-2xl bg-gradient-to-r from-brand-600 to-emerald-500 hover:from-brand-500 hover:to-emerald-400 text-white font-extrabold text-sm shadow-xl shadow-brand-500/30 transition flex items-center justify-center gap-2">
+              class="w-full py-3.5 rounded-2xl bg-gradient-to-r from-[#D97724] to-[#C8671B] hover:from-[#C06216] hover:to-[#B35811] text-white font-black text-sm shadow-xl shadow-amber-600/30 transition flex items-center justify-center gap-2">
         <i class="fa-solid fa-lock"></i>
         <span>Confirm Payment & Print Token</span>
       </button>
@@ -504,35 +515,35 @@
   </div>
 
   <!-- ORDER SUCCESS & TOKEN MODAL -->
-  <div id="success-modal" class="fixed inset-0 bg-slate-950/90 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
-    <div class="bg-slate-900 border border-brand-500/40 w-full max-w-md rounded-3xl p-6 sm:p-8 space-y-6 text-center shadow-2xl relative">
+  <div id="success-modal" class="fixed inset-0 bg-[#3C2415]/70 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-[#FFFDF7] border-2 border-[#D97724] w-full max-w-md rounded-3xl p-6 sm:p-8 space-y-6 text-center shadow-2xl relative text-[#3C2415]">
       
-      <div class="w-16 h-16 rounded-full bg-brand-500/20 text-brand-400 flex items-center justify-center text-3xl mx-auto ready-pulse">
+      <div class="w-16 h-16 rounded-full bg-[#EAF5EA] text-[#2E7D32] border border-[#A5D6A7] flex items-center justify-center text-3xl mx-auto ready-pulse">
         <i class="fa-solid fa-check"></i>
       </div>
 
       <div class="space-y-1">
-        <span class="text-xs uppercase font-bold tracking-widest text-brand-400">Order Placed Successfully!</span>
-        <h2 class="text-2xl font-black text-white">Your Canteen Token Number</h2>
+        <span class="text-xs uppercase font-extrabold tracking-widest text-[#2E7D32]">Order Placed Successfully!</span>
+        <h2 class="text-2xl font-black text-[#3C2415]">Your Canteen Token Number</h2>
       </div>
 
       <!-- Big Token Display -->
-      <div class="p-6 rounded-3xl bg-slate-950 border-2 border-brand-500/60 shadow-inner space-y-2">
-        <p class="text-xs uppercase font-bold text-slate-400">Order Token</p>
-        <p class="text-5xl font-black font-mono tracking-wider text-white" id="success-token-number">TK-101</p>
-        <p class="text-xs text-amber-400 font-medium" id="success-prep-time">Estimated wait: ~10 minutes</p>
+      <div class="p-6 rounded-3xl bg-gradient-to-b from-[#FFF5DC] to-[#FFE799] border-2 border-[#D97724] shadow-inner space-y-2">
+        <p class="text-xs uppercase font-extrabold text-[#7A4510]">Order Token</p>
+        <p class="text-5xl font-black font-mono tracking-wider text-[#3C2415]" id="success-token-number">TK-101</p>
+        <p class="text-xs text-[#8C4F18] font-bold" id="success-prep-time">Estimated wait: ~10 minutes</p>
       </div>
 
-      <p class="text-xs text-slate-400">
-        Please watch the Live Digital Token Board. When your token turns <span class="text-emerald-400 font-bold">GREEN</span>, please proceed to Counter #1 to collect your tray!
+      <p class="text-xs text-[#6B472E]">
+        Please watch the Live Digital Token Board. When your token turns <span class="text-[#2E7D32] font-black">GREEN</span>, please proceed to Counter #1 to collect your tray!
       </p>
 
       <div class="flex flex-col gap-2 pt-2">
         <a id="btn-download-receipt" href="#" target="_blank"
-           class="w-full py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs font-semibold text-slate-200 border border-slate-700 flex items-center justify-center gap-2">
-          <i class="fa-solid fa-receipt text-indigo-400"></i> View / Download Tax Invoice (.txt)
+           class="w-full py-2.5 rounded-xl bg-[#FFF6E5] hover:bg-[#FFEED4] text-xs font-bold text-[#6B472E] border border-[#EAD1B2] flex items-center justify-center gap-2">
+          <i class="fa-solid fa-receipt text-[#D97724]"></i> View / Download Tax Invoice (.txt)
         </a>
-        <button onclick="closeSuccessAndShowBoard()" class="w-full py-3 rounded-xl bg-brand-600 hover:bg-brand-500 text-white font-bold text-sm">
+        <button onclick="closeSuccessAndShowBoard()" class="w-full py-3 rounded-xl bg-gradient-to-r from-[#D97724] to-[#E08A38] text-white font-bold text-sm shadow-md">
           Watch on Live Token Board
         </button>
       </div>
@@ -541,42 +552,42 @@
   </div>
 
   <!-- USER PROFILE MODAL -->
-  <div id="profile-modal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-    <div class="bg-slate-900 border border-slate-800 w-full max-w-sm rounded-3xl p-6 space-y-5 shadow-2xl relative">
-      <button onclick="closeProfileModal()" class="absolute right-4 top-4 w-7 h-7 rounded-lg bg-slate-800 text-slate-400 hover:text-white flex items-center justify-center">
+  <div id="profile-modal" class="fixed inset-0 bg-[#3C2415]/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-[#FFFDF7] border border-[#EAD1B2] w-full max-w-sm rounded-3xl p-6 space-y-5 shadow-2xl relative text-[#3C2415]">
+      <button onclick="closeProfileModal()" class="absolute right-4 top-4 w-7 h-7 rounded-lg bg-[#FFF6E5] border border-[#EAD1B2] text-[#8C684E] hover:text-[#3C2415] flex items-center justify-center">
         <i class="fa-solid fa-xmark"></i>
       </button>
 
-      <h3 class="text-lg font-bold text-white">Dining Profile & Role</h3>
+      <h3 class="text-lg font-black text-[#3C2415]">Dining Profile & Role</h3>
       
       <div class="space-y-3 text-xs">
         <div>
-          <label class="block text-slate-400 mb-1">Full Name</label>
-          <input type="text" id="prof-name" value="Rahul Sharma" class="w-full px-3 py-2 rounded-xl bg-slate-800 border border-slate-700 text-white font-medium">
+          <label class="block text-[#6B472E] font-semibold mb-1">Full Name</label>
+          <input type="text" id="prof-name" value="Rahul Sharma" class="w-full px-3 py-2 rounded-xl bg-white border border-[#EAD1B2] text-[#3C2415] font-medium">
         </div>
         <div>
-          <label class="block text-slate-400 mb-1">Roll Number / Emp ID</label>
-          <input type="text" id="prof-id" value="CS24-105" class="w-full px-3 py-2 rounded-xl bg-slate-800 border border-slate-700 text-white font-medium">
+          <label class="block text-[#6B472E] font-semibold mb-1">Roll Number / Emp ID</label>
+          <input type="text" id="prof-id" value="CS24-105" class="w-full px-3 py-2 rounded-xl bg-white border border-[#EAD1B2] text-[#3C2415] font-medium">
         </div>
         <div>
-          <label class="block text-slate-400 mb-1">Role & Privilege Discount</label>
-          <select id="prof-role" class="w-full px-3 py-2 rounded-xl bg-slate-800 border border-slate-700 text-white font-medium">
+          <label class="block text-[#6B472E] font-semibold mb-1">Role & Privilege Discount</label>
+          <select id="prof-role" class="w-full px-3 py-2 rounded-xl bg-white border border-[#EAD1B2] text-[#3C2415] font-medium">
             <option value="Student">Student (5% Campus Discount)</option>
             <option value="Faculty">Faculty / Staff (10% Discount)</option>
           </select>
         </div>
-        <div class="p-3 rounded-xl bg-slate-950 border border-slate-800 flex items-center justify-between">
+        <div class="p-3 rounded-xl bg-[#FFF6E5] border border-[#EAD1B2] flex items-center justify-between">
           <div>
-            <p class="text-[11px] text-slate-400">Campus Wallet Balance</p>
-            <p class="text-base font-extrabold text-emerald-400" id="prof-wallet-val">Rs. 450.00</p>
+            <p class="text-[11px] text-[#8C684E]">Campus Wallet Balance</p>
+            <p class="text-base font-black text-[#2E7D32]" id="prof-wallet-val">Rs. 450.00</p>
           </div>
-          <button onclick="topUpWallet()" class="px-2.5 py-1 rounded-lg bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-[11px] font-bold">
+          <button onclick="topUpWallet()" class="px-2.5 py-1 rounded-lg bg-[#EAF5EA] text-[#2E7D32] border border-[#A5D6A7] text-[11px] font-black">
             + Top Up
           </button>
         </div>
       </div>
 
-      <button onclick="saveProfile()" class="w-full py-2.5 rounded-xl bg-brand-600 hover:bg-brand-500 text-white font-bold text-xs">
+      <button onclick="saveProfile()" class="w-full py-2.5 rounded-xl bg-gradient-to-r from-[#D97724] to-[#E08A38] text-white font-bold text-xs shadow-md">
         Save Profile
       </button>
     </div>
@@ -615,12 +626,10 @@
         const navEl = document.getElementById(`nav-${t}`);
         if (t === tabId) {
           tabEl.classList.remove('hidden');
-          navEl.classList.add('bg-brand-600', 'text-white', 'shadow-sm');
-          navEl.classList.remove('text-slate-300', 'hover:bg-slate-700/50');
+          navEl.className = "px-4 py-2 rounded-xl transition-all duration-200 bg-gradient-to-r from-[#D97724] to-[#E08A38] text-white shadow-md flex items-center gap-2";
         } else {
           tabEl.classList.add('hidden');
-          navEl.classList.remove('bg-brand-600', 'text-white', 'shadow-sm');
-          navEl.classList.add('text-slate-300', 'hover:bg-slate-700/50');
+          navEl.className = "px-4 py-2 rounded-xl transition-all duration-200 text-[#6B472E] hover:text-[#3C2415] hover:bg-[#FFEED4] flex items-center gap-2";
         }
       });
       if (tabId === 'kitchen') {
@@ -665,9 +674,9 @@
 
       if (filtered.length === 0) {
         grid.innerHTML = `
-          <div class="col-span-full py-16 text-center text-slate-400 space-y-2">
-            <i class="fa-solid fa-utensils text-4xl text-slate-600"></i>
-            <p class="text-sm font-semibold">No food or beverage items found matching your filter.</p>
+          <div class="col-span-full py-16 text-center text-[#8C684E] space-y-2 bg-[#FFFDF7]/90 rounded-3xl border border-[#EAD1B2]">
+            <i class="fa-solid fa-utensils text-4xl text-[#D4A373]"></i>
+            <p class="text-sm font-bold text-[#3C2415]">No food or beverage items found matching your filter.</p>
           </div>
         `;
         return;
@@ -677,43 +686,43 @@
         const isAvailable = item.available && item.stock > 0;
         
         // Dietary tag
-        let dietBadge = '<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">VEG</span>';
+        let dietBadge = '<span class="px-2 py-0.5 rounded-lg text-[10px] font-bold bg-[#EAF5EA] text-[#2E7D32] border border-[#A5D6A7]">VEG</span>';
         if (item.dietaryId === 1) {
-          dietBadge = '<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-red-500/20 text-red-400 border border-red-500/30">NON-VEG</span>';
+          dietBadge = '<span class="px-2 py-0.5 rounded-lg text-[10px] font-bold bg-[#FFEBEE] text-[#C62828] border border-[#EF9A9A]">NON-VEG</span>';
         } else if (item.dietaryId === 2) {
-          dietBadge = '<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-lime-500/20 text-lime-400 border border-lime-500/30">VEGAN</span>';
+          dietBadge = '<span class="px-2 py-0.5 rounded-lg text-[10px] font-bold bg-[#F1F8E9] text-[#33691E] border border-[#C5E1A5]">VEGAN</span>';
         }
 
         // Subtitle & icon
         let specTag = '';
         if (item.type === 'Food') {
-          specTag = `<span class="text-[11px] text-slate-400"><i class="fa-solid fa-pepper-hot text-amber-500"></i> ${item.spiceLevel || 'Mild'}</span>`;
+          specTag = `<span class="text-[11px] text-[#6B472E] font-medium"><i class="fa-solid fa-pepper-hot text-[#D97724]"></i> ${item.spiceLevel || 'Mild'}</span>`;
         } else if (item.type === 'Beverage') {
-          specTag = `<span class="text-[11px] text-slate-400">${item.isHot ? '<i class="fa-solid fa-mug-hot text-amber-400"></i> Hot' : '<i class="fa-solid fa-snowflake text-cyan-400"></i> Chilled'} • ${item.volumeMl || 200}ml</span>`;
+          specTag = `<span class="text-[11px] text-[#6B472E] font-medium">${item.isHot ? '<i class="fa-solid fa-mug-hot text-[#A0673B]"></i> Hot' : '<i class="fa-solid fa-snowflake text-sky-600"></i> Chilled'} • ${item.volumeMl || 200}ml</span>`;
         } else if (item.type === 'Combo') {
-          specTag = `<span class="text-[11px] text-amber-400 font-semibold"><i class="fa-solid fa-gift"></i> Save Rs. ${(item.originalPrice - item.price).toFixed(0)}</span>`;
+          specTag = `<span class="text-[11px] text-[#D97724] font-bold"><i class="fa-solid fa-gift"></i> Save Rs. ${(item.originalPrice - item.price).toFixed(0)}</span>`;
         }
 
         // Stock status
-        let stockHtml = `<span class="text-xs text-emerald-400"><i class="fa-solid fa-circle-check text-[10px]"></i> In Stock (${item.stock})</span>`;
+        let stockHtml = `<span class="text-xs text-[#2E7D32] font-semibold"><i class="fa-solid fa-circle-check text-[10px]"></i> In Stock (${item.stock})</span>`;
         if (!isAvailable) {
-          stockHtml = `<span class="text-xs text-red-400 font-bold"><i class="fa-solid fa-ban text-[10px]"></i> Out of Stock</span>`;
+          stockHtml = `<span class="text-xs text-[#C62828] font-bold"><i class="fa-solid fa-ban text-[10px]"></i> Out of Stock</span>`;
         } else if (item.stock < 10) {
-          stockHtml = `<span class="text-xs text-amber-400 font-semibold"><i class="fa-solid fa-triangle-exclamation text-[10px]"></i> Only ${item.stock} left</span>`;
+          stockHtml = `<span class="text-xs text-[#D97724] font-bold"><i class="fa-solid fa-triangle-exclamation text-[10px]"></i> Only ${item.stock} left</span>`;
         }
 
         const card = document.createElement('div');
-        card.className = `rounded-2xl bg-slate-900 border border-slate-800 p-5 flex flex-col justify-between transition-all hover:border-slate-700 hover:shadow-xl ${!isAvailable ? 'opacity-60' : ''}`;
+        card.className = `rounded-3xl bg-[#FFFDF7]/95 backdrop-blur-md border border-[#EAD1B2] p-5 flex flex-col justify-between transition-all duration-200 hover:border-[#D4A373] hover:shadow-xl hover:-translate-y-0.5 ${!isAvailable ? 'opacity-60' : ''}`;
         card.innerHTML = `
           <div class="space-y-3">
             <div class="flex items-start justify-between gap-2">
-              <span class="text-xs font-mono font-bold text-slate-500">#${item.id}</span>
+              <span class="text-xs font-mono font-bold text-[#8C684E]">#${item.id}</span>
               ${dietBadge}
             </div>
 
             <div>
-              <h4 class="font-extrabold text-white text-base leading-tight">${item.name}</h4>
-              <p class="text-xs text-slate-400 mt-0.5">${item.category}</p>
+              <h4 class="font-extrabold text-[#3C2415] text-base leading-tight">${item.name}</h4>
+              <p class="text-xs text-[#8C684E] mt-0.5 font-medium">${item.category}</p>
             </div>
 
             <div class="flex items-center justify-between pt-1">
@@ -722,27 +731,27 @@
             </div>
 
             ${item.type === 'Combo' && item.includedItems ? `
-              <div class="p-2.5 rounded-xl bg-slate-950/60 border border-slate-800/80 text-[11px] text-slate-300 space-y-1">
-                <span class="font-bold text-amber-400">Includes:</span>
-                <ul class="list-disc list-inside space-y-0.5 text-slate-400">
+              <div class="p-2.5 rounded-2xl bg-[#FFF9EC] border border-[#EAD1B2] text-[11px] text-[#6B472E] space-y-1">
+                <span class="font-bold text-[#D97724]">Includes:</span>
+                <ul class="list-disc list-inside space-y-0.5 text-[#6B472E]">
                   ${item.includedItems.map(si => `<li>${si}</li>`).join('')}
                 </ul>
               </div>
             ` : ''}
           </div>
 
-          <div class="pt-4 mt-4 border-t border-slate-800/80 flex items-center justify-between gap-2">
+          <div class="pt-4 mt-4 border-t border-[#F0DEC7] flex items-center justify-between gap-2">
             <div>
-              <span class="text-xs text-slate-400">Price</span>
-              <p class="text-lg font-black font-mono text-emerald-400">Rs. ${item.price.toFixed(2)}</p>
+              <span class="text-[11px] text-[#8C684E] font-medium">Price</span>
+              <p class="text-lg font-black font-mono text-[#3C2415]">Rs. ${item.price.toFixed(2)}</p>
             </div>
 
             ${isAvailable ? `
-              <button onclick="addToCart(${item.id})" class="px-4 py-2 rounded-xl bg-brand-600 hover:bg-brand-500 active:scale-95 text-white font-semibold text-xs shadow-md shadow-brand-600/30 transition flex items-center gap-1.5">
+              <button onclick="addToCart(${item.id})" class="px-4 py-2 rounded-xl bg-gradient-to-r from-[#D97724] to-[#E08A38] hover:from-[#C06216] hover:to-[#CD7425] active:scale-95 text-white font-bold text-xs shadow-md shadow-amber-600/25 transition flex items-center gap-1.5">
                 <i class="fa-solid fa-plus"></i> Add
               </button>
             ` : `
-              <span class="text-xs text-slate-500 font-semibold px-3 py-1.5 rounded-xl bg-slate-800">Unavailable</span>
+              <span class="text-xs text-[#8C684E] font-semibold px-3 py-1.5 rounded-xl bg-[#FFF6E5]">Unavailable</span>
             `}
           </div>
         `;
@@ -753,13 +762,11 @@
     function setCategoryFilter(catId) {
       activeCategory = catId;
       document.querySelectorAll('.category-pill').forEach(btn => {
-        btn.classList.remove('bg-slate-800', 'text-white', 'border-brand-500/50');
-        btn.classList.add('bg-slate-800/60', 'text-slate-300', 'border-slate-700/60');
+        btn.className = "category-pill whitespace-nowrap px-4 py-2 rounded-2xl bg-[#FFF6E5] text-[#6B472E] border border-[#EAD1B2] hover:bg-[#FFEED4] hover:text-[#3C2415] flex items-center gap-1.5 font-semibold";
       });
       const activeBtn = document.getElementById(`cat-${catId}`);
       if (activeBtn) {
-        activeBtn.classList.remove('bg-slate-800/60', 'text-slate-300', 'border-slate-700/60');
-        activeBtn.classList.add('bg-slate-800', 'text-white', 'border-brand-500/50');
+        activeBtn.className = "category-pill whitespace-nowrap px-4 py-2 rounded-2xl bg-gradient-to-r from-[#D97724] to-[#E08A38] text-white shadow-sm flex items-center gap-1.5 font-semibold";
       }
       renderMenu();
     }
@@ -769,11 +776,13 @@
       ['ALL', 'VEG', 'NON_VEG', 'VEGAN'].forEach(d => {
         const btn = document.getElementById(`diet-${d}`);
         if (d === diet) {
-          btn.classList.add('bg-brand-600', 'text-white');
-          btn.classList.remove('text-slate-300');
+          btn.className = "px-3 py-1.5 rounded-xl bg-gradient-to-r from-[#D97724] to-[#E08A38] text-white shadow-sm transition font-bold";
         } else {
-          btn.classList.remove('bg-brand-600', 'text-white');
-          btn.classList.add('text-slate-300');
+          let col = "text-[#6B472E]";
+          if (d === 'VEG') col = "text-[#2E7D32]";
+          if (d === 'NON_VEG') col = "text-[#C62828]";
+          if (d === 'VEGAN') col = "text-[#33691E]";
+          btn.className = `px-3 py-1.5 rounded-xl ${col} hover:bg-white transition flex items-center gap-1 font-bold`;
         }
       });
       renderMenu();
@@ -837,10 +846,10 @@
 
       if (cart.length === 0) {
         container.innerHTML = `
-          <div class="py-16 text-center text-slate-500 space-y-2">
-            <i class="fa-solid fa-basket-shopping text-4xl"></i>
-            <p class="text-sm">Your dining cart is empty.</p>
-            <p class="text-xs text-slate-600">Select dishes from the menu to get started.</p>
+          <div class="py-16 text-center text-[#8C684E] space-y-2">
+            <i class="fa-solid fa-basket-shopping text-4xl text-[#D4A373]"></i>
+            <p class="text-sm font-bold text-[#3C2415]">Your dining tray is empty.</p>
+            <p class="text-xs text-[#8C684E]">Pick tasty treats from the canteen menu!</p>
           </div>
         `;
         checkoutBtn.disabled = true;
@@ -858,25 +867,25 @@
         subtotal += lineTotal;
 
         const row = document.createElement('div');
-        row.className = "p-3 rounded-2xl bg-slate-950 border border-slate-800 space-y-2";
+        row.className = "p-3.5 rounded-2xl bg-[#FFF9EC] border border-[#EAD1B2] space-y-2 text-[#3C2415]";
         row.innerHTML = `
           <div class="flex items-start justify-between gap-2">
             <div>
-              <p class="font-bold text-white text-xs leading-tight">${item.name}</p>
-              <p class="text-[11px] font-mono text-emerald-400">Rs. ${item.price.toFixed(2)} each</p>
+              <p class="font-extrabold text-[#3C2415] text-xs leading-tight">${item.name}</p>
+              <p class="text-[11px] font-mono text-[#D97724] font-bold">Rs. ${item.price.toFixed(2)} each</p>
             </div>
-            <p class="font-mono font-bold text-slate-200 text-xs">Rs. ${lineTotal.toFixed(2)}</p>
+            <p class="font-mono font-black text-[#3C2415] text-xs">Rs. ${lineTotal.toFixed(2)}</p>
           </div>
 
           <div class="flex items-center justify-between gap-2">
             <input type="text" value="${item.notes || ''}" onchange="updateCartNote(${item.id}, this.value)" 
-                   placeholder="Special note (e.g. Less spicy)" 
-                   class="flex-1 px-2.5 py-1 rounded-lg bg-slate-900 border border-slate-800 text-[11px] text-slate-300 placeholder-slate-600 focus:outline-none focus:border-slate-700">
+                   placeholder="Special note (e.g. Less spicy / Extra sauce)" 
+                   class="flex-1 px-2.5 py-1 rounded-lg bg-white border border-[#EAD1B2] text-[11px] text-[#3C2415] placeholder-[#9C7960] focus:outline-none focus:border-[#D97724]">
             
-            <div class="flex items-center gap-1.5 bg-slate-900 px-2 py-1 rounded-lg border border-slate-800">
-              <button onclick="updateCartQty(${item.id}, -1)" class="w-5 h-5 rounded text-slate-400 hover:text-white flex items-center justify-center font-bold text-xs">-</button>
-              <span class="w-6 text-center font-mono font-bold text-xs text-white">${item.quantity}</span>
-              <button onclick="updateCartQty(${item.id}, 1)" class="w-5 h-5 rounded text-slate-400 hover:text-white flex items-center justify-center font-bold text-xs">+</button>
+            <div class="flex items-center gap-1.5 bg-white px-2 py-1 rounded-lg border border-[#EAD1B2]">
+              <button onclick="updateCartQty(${item.id}, -1)" class="w-5 h-5 rounded text-[#8C684E] hover:text-[#3C2415] flex items-center justify-center font-bold text-xs">-</button>
+              <span class="w-6 text-center font-mono font-bold text-xs text-[#3C2415]">${item.quantity}</span>
+              <button onclick="updateCartQty(${item.id}, 1)" class="w-5 h-5 rounded text-[#8C684E] hover:text-[#3C2415] flex items-center justify-center font-bold text-xs">+</button>
             </div>
           </div>
         `;
@@ -929,15 +938,15 @@
 
     function quickApplyCoupon(code) {
       const feedback = document.getElementById('coupon-feedback');
-      feedback.classList.remove('hidden', 'text-emerald-400', 'text-red-400');
+      feedback.classList.remove('hidden', 'text-[#2E7D32]', 'text-[#C62828]');
 
       if (code === 'CAMPUS50' || code === 'WELCOME10' || code === 'SNACK5') {
         appliedCoupon = code;
-        feedback.classList.add('text-emerald-400');
+        feedback.classList.add('text-[#2E7D32]');
         feedback.textContent = `Promo code '${code}' applied successfully!`;
       } else {
         appliedCoupon = null;
-        feedback.classList.add('text-red-400');
+        feedback.classList.add('text-[#C62828]');
         feedback.textContent = "Invalid promo code.";
       }
       updateCartDisplay();
@@ -973,57 +982,56 @@
       ['UPI', 'WALLET', 'CASH', 'CARD'].forEach(m => {
         const btn = document.getElementById(`paytab-${m}`);
         if (m === method) {
-          btn.className = "p-2.5 rounded-xl border border-brand-500 bg-brand-600/20 text-brand-300 flex flex-col items-center gap-1";
+          btn.className = "p-2.5 rounded-2xl border-2 border-[#D97724] bg-[#FFF0E0] text-[#D97724] flex flex-col items-center gap-1 font-bold";
         } else {
-          btn.className = "p-2.5 rounded-xl border border-slate-700 bg-slate-800 text-slate-300 flex flex-col items-center gap-1";
+          btn.className = "p-2.5 rounded-2xl border border-[#EAD1B2] bg-[#FFF6E5] text-[#6B472E] flex flex-col items-center gap-1 font-semibold";
         }
       });
 
-      const dueText = document.getElementById('checkout-due-amount').textContent;
       const detailsBox = document.getElementById('payment-details-view');
 
       if (method === 'UPI') {
         detailsBox.innerHTML = `
           <div class="space-y-2">
-            <div class="w-24 h-24 bg-white p-2 rounded-xl mx-auto shadow-md">
+            <div class="w-24 h-24 bg-white p-2 rounded-2xl mx-auto shadow-md border border-[#EAD1B2]">
               <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=upi://pay?pa=smartserve@campus" alt="QR" class="w-full h-full object-contain">
             </div>
-            <p class="text-xs font-mono text-emerald-400">UPI ID: smartserve@campus</p>
-            <p class="text-[11px] text-slate-400">Scan using BHIM, Google Pay, PhonePe or Paytm</p>
+            <p class="text-xs font-mono font-bold text-[#D97724]">UPI ID: smartserve@campus</p>
+            <p class="text-[11px] text-[#6B472E]">Scan using Google Pay, PhonePe, Paytm or BHIM</p>
           </div>
         `;
       } else if (method === 'WALLET') {
         detailsBox.innerHTML = `
           <div class="space-y-2">
-            <i class="fa-solid fa-id-card text-3xl text-emerald-400"></i>
-            <p class="text-xs font-bold text-slate-200">College SmartCard / Dining Wallet</p>
-            <p class="text-xs text-slate-400">Available Balance: <span class="font-mono text-emerald-400 font-bold">Rs. ${currentUser.wallet.toFixed(2)}</span></p>
-            <p class="text-[11px] text-slate-500">Amount will be debited instantly on order confirmation.</p>
+            <i class="fa-solid fa-id-card text-3xl text-[#2E7D32]"></i>
+            <p class="text-xs font-bold text-[#3C2415]">College SmartCard / Dining Wallet</p>
+            <p class="text-xs text-[#6B472E]">Available Balance: <span class="font-mono text-[#2E7D32] font-black">Rs. ${currentUser.wallet.toFixed(2)}</span></p>
+            <p class="text-[11px] text-[#8C684E]">Amount will be debited instantly on order confirmation.</p>
           </div>
         `;
       } else if (method === 'CASH') {
         detailsBox.innerHTML = `
           <div class="space-y-2">
-            <i class="fa-solid fa-cash-register text-3xl text-amber-400"></i>
-            <p class="text-xs font-bold text-slate-200">Cash Payment at Counter #1</p>
-            <p class="text-[11px] text-slate-400">Please present your generated token slip to the cashier to pay and collect.</p>
+            <i class="fa-solid fa-cash-register text-3xl text-[#D97724]"></i>
+            <p class="text-xs font-bold text-[#3C2415]">Cash Payment at Counter #1</p>
+            <p class="text-[11px] text-[#6B472E]">Please show your digital token to the cashier when paying and collecting.</p>
           </div>
         `;
       } else if (method === 'CARD') {
         detailsBox.innerHTML = `
           <div class="space-y-2 text-left max-w-xs mx-auto">
             <div>
-              <label class="text-[10px] text-slate-400">Card Number</label>
-              <input type="text" placeholder="**** **** **** 4821" value="4532 8920 1824 4821" class="w-full px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-xs text-slate-200 font-mono">
+              <label class="text-[10px] text-[#8C684E] font-bold">Card Number</label>
+              <input type="text" placeholder="**** **** **** 4821" value="4532 8920 1824 4821" class="w-full px-2.5 py-1.5 rounded-lg bg-white border border-[#EAD1B2] text-xs text-[#3C2415] font-mono">
             </div>
             <div class="flex gap-2">
               <div class="flex-1">
-                <label class="text-[10px] text-slate-400">Exp</label>
-                <input type="text" placeholder="MM/YY" value="08/28" class="w-full px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-xs text-slate-200 font-mono">
+                <label class="text-[10px] text-[#8C684E] font-bold">Exp</label>
+                <input type="text" placeholder="MM/YY" value="08/28" class="w-full px-2.5 py-1.5 rounded-lg bg-white border border-[#EAD1B2] text-xs text-[#3C2415] font-mono">
               </div>
               <div class="w-20">
-                <label class="text-[10px] text-slate-400">CVV</label>
-                <input type="password" placeholder="***" value="782" class="w-full px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-xs text-slate-200 font-mono">
+                <label class="text-[10px] text-[#8C684E] font-bold">CVV</label>
+                <input type="password" placeholder="***" value="782" class="w-full px-2.5 py-1.5 rounded-lg bg-white border border-[#EAD1B2] text-xs text-[#3C2415] font-mono">
               </div>
             </div>
           </div>
@@ -1122,47 +1130,47 @@
 
       // Render Cooking
       if (cookingOrders.length === 0) {
-        cookingList.innerHTML = `<p class="text-xs text-slate-500 py-10 text-center">No active kitchen orders cooking.</p>`;
+        cookingList.innerHTML = `<p class="text-xs text-[#8C684E] py-10 text-center font-medium">No active kitchen orders cooking.</p>`;
       } else {
         cookingList.innerHTML = cookingOrders.map(o => `
-          <div class="p-3.5 rounded-2xl bg-slate-950 border border-slate-800 space-y-1.5">
+          <div class="p-3.5 rounded-2xl bg-white border border-[#EAD1B2] space-y-1.5 shadow-sm">
             <div class="flex items-center justify-between">
-              <span class="text-base font-black font-mono text-amber-400">TK-${o.tokenNumber}</span>
-              <span class="text-[10px] px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-300 border border-amber-500/30">
+              <span class="text-base font-black font-mono text-[#D97724]">TK-${o.tokenNumber}</span>
+              <span class="text-[10px] px-2 py-0.5 rounded-full bg-[#FFE799] text-[#7A4510] font-extrabold border border-[#F0D58A]">
                 ${o.status}
               </span>
             </div>
-            <p class="text-xs font-bold text-slate-200">${o.customer.name}</p>
-            <p class="text-[11px] text-slate-400 truncate">${o.items.map(i => `${i.quantity}x ${i.name}`).join(', ')}</p>
+            <p class="text-xs font-bold text-[#3C2415]">${o.customer.name}</p>
+            <p class="text-[11px] text-[#6B472E] truncate font-medium">${o.items.map(i => `${i.quantity}x ${i.name}`).join(', ')}</p>
           </div>
         `).join('');
       }
 
       // Render Ready
       if (readyOrders.length === 0) {
-        readyList.innerHTML = `<p class="text-xs text-slate-500 py-10 text-center">No orders awaiting pickup.</p>`;
+        readyList.innerHTML = `<p class="text-xs text-[#2E7D32] py-10 text-center font-medium">No orders awaiting pickup.</p>`;
       } else {
         readyList.innerHTML = readyOrders.map(o => `
-          <div class="p-4 rounded-2xl bg-emerald-950/40 border-2 border-emerald-500/70 shadow-lg shadow-emerald-500/20 ready-pulse space-y-2">
+          <div class="p-4 rounded-2xl bg-white border-2 border-[#2E7D32] shadow-lg shadow-emerald-600/10 ready-pulse space-y-2">
             <div class="flex items-center justify-between">
-              <span class="text-2xl font-black font-mono text-emerald-400 tracking-wider">TK-${o.tokenNumber}</span>
-              <span class="text-xs px-2.5 py-0.5 rounded-full bg-emerald-500 text-slate-950 font-bold uppercase">READY</span>
+              <span class="text-2xl font-black font-mono text-[#2E7D32] tracking-wider">TK-${o.tokenNumber}</span>
+              <span class="text-xs px-2.5 py-0.5 rounded-full bg-[#2E7D32] text-white font-extrabold uppercase shadow-sm">READY</span>
             </div>
-            <p class="text-xs font-bold text-white">${o.customer.name} (${o.customer.role})</p>
-            <p class="text-xs text-emerald-300 font-semibold"><i class="fa-solid fa-bell"></i> Please collect at Counter #1!</p>
+            <p class="text-xs font-extrabold text-[#3C2415]">${o.customer.name} (${o.customer.role})</p>
+            <p class="text-xs text-[#2E7D32] font-black"><i class="fa-solid fa-bell"></i> Please collect at Counter #1!</p>
           </div>
         `).join('');
       }
 
       // Render Completed
       if (completedOrders.length === 0) {
-        doneList.innerHTML = `<p class="text-xs text-slate-500 py-10 text-center">No orders completed today yet.</p>`;
+        doneList.innerHTML = `<p class="text-xs text-[#8C684E] py-10 text-center font-medium">No orders completed today yet.</p>`;
       } else {
         doneList.innerHTML = completedOrders.slice(0, 5).map(o => `
-          <div class="p-3 rounded-xl bg-slate-950/50 border border-slate-800/80 flex items-center justify-between">
-            <span class="text-xs font-mono font-bold text-slate-400">TK-${o.tokenNumber}</span>
-            <span class="text-xs text-slate-300 truncate max-w-[120px]">${o.customer.name}</span>
-            <span class="text-[10px] text-emerald-500 font-semibold"><i class="fa-solid fa-check"></i> Done</span>
+          <div class="p-3 rounded-xl bg-white border border-[#EAD1B2] flex items-center justify-between shadow-sm">
+            <span class="text-xs font-mono font-bold text-[#8C684E]">TK-${o.tokenNumber}</span>
+            <span class="text-xs text-[#3C2415] font-semibold truncate max-w-[120px]">${o.customer.name}</span>
+            <span class="text-[10px] text-[#2E7D32] font-bold"><i class="fa-solid fa-check"></i> Done</span>
           </div>
         `).join('');
       }
@@ -1174,7 +1182,7 @@
       if (!tokenInput) return;
       const box = document.getElementById('track-result-box');
       box.classList.remove('hidden');
-      box.innerHTML = `<p class="text-xs text-slate-400 py-4 text-center"><i class="fa-solid fa-spinner fa-spin"></i> Checking system records...</p>`;
+      box.innerHTML = `<p class="text-xs text-[#6B472E] py-4 text-center font-semibold"><i class="fa-solid fa-spinner fa-spin"></i> Checking system records...</p>`;
 
       try {
         const res = await fetch(`/api/token_status?token=${tokenInput}`);
@@ -1182,24 +1190,24 @@
         if (data.success) {
           const o = data.order;
           box.innerHTML = `
-            <div class="p-5 rounded-2xl bg-slate-950 border border-slate-800 space-y-3">
+            <div class="p-5 rounded-2xl bg-[#FFF9EC] border border-[#EAD1B2] space-y-3">
               <div class="flex items-center justify-between">
                 <div>
-                  <span class="text-xs text-slate-400">Token Number</span>
-                  <p class="text-2xl font-black font-mono text-emerald-400">TK-${o.tokenNumber}</p>
+                  <span class="text-xs text-[#8C684E] font-medium">Token Number</span>
+                  <p class="text-2xl font-black font-mono text-[#D97724]">TK-${o.tokenNumber}</p>
                 </div>
-                <span class="px-3 py-1 rounded-full text-xs font-bold ${o.statusCode === 3 ? 'bg-emerald-500 text-slate-950' : 'bg-amber-500/20 text-amber-300 border border-amber-500/30'}">
+                <span class="px-3 py-1 rounded-full text-xs font-bold ${o.statusCode === 3 ? 'bg-[#2E7D32] text-white shadow-sm' : 'bg-[#FFE799] text-[#7A4510] border border-[#F0D58A]'}">
                   ${o.status}
                 </span>
               </div>
-              <div class="text-xs space-y-1 text-slate-300 border-t border-slate-800 pt-3">
-                <p><strong class="text-slate-400">Customer:</strong> ${o.customer.name} (${o.customer.role})</p>
-                <p><strong class="text-slate-400">Placed At:</strong> ${o.timestamp}</p>
-                <p><strong class="text-slate-400">Items:</strong> ${o.items.map(i => `${i.quantity}x ${i.name}`).join(', ')}</p>
-                <p><strong class="text-slate-400">Total Bill:</strong> Rs. ${o.grandTotal.toFixed(2)}</p>
+              <div class="text-xs space-y-1 text-[#6B472E] border-t border-[#EAD1B2] pt-3 font-medium">
+                <p><strong class="text-[#3C2415]">Customer:</strong> ${o.customer.name} (${o.customer.role})</p>
+                <p><strong class="text-[#3C2415]">Placed At:</strong> ${o.timestamp}</p>
+                <p><strong class="text-[#3C2415]">Items:</strong> ${o.items.map(i => `${i.quantity}x ${i.name}`).join(', ')}</p>
+                <p><strong class="text-[#3C2415]">Total Bill:</strong> Rs. ${o.grandTotal.toFixed(2)}</p>
               </div>
               <div class="pt-2">
-                <a href="${o.receiptFile}" target="_blank" class="text-xs font-semibold text-brand-400 hover:underline">
+                <a href="${o.receiptFile}" target="_blank" class="text-xs font-bold text-[#D97724] hover:underline">
                   <i class="fa-solid fa-file-invoice"></i> View Saved Tax Receipt
                 </a>
               </div>
@@ -1207,13 +1215,13 @@
           `;
         } else {
           box.innerHTML = `
-            <div class="p-4 rounded-2xl bg-red-500/10 border border-red-500/30 text-red-400 text-xs text-center font-semibold">
+            <div class="p-4 rounded-2xl bg-[#FFEBEE] border border-[#FFCDD2] text-[#C62828] text-xs text-center font-bold">
               ${data.error}
             </div>
           `;
         }
       } catch (err) {
-        box.innerHTML = `<p class="text-xs text-red-400 text-center">Error connecting to server.</p>`;
+        box.innerHTML = `<p class="text-xs text-[#C62828] text-center font-bold">Error connecting to server.</p>`;
       }
     }
 
@@ -1243,24 +1251,24 @@
     function renderKitchenTable(activeOrders) {
       const tbody = document.getElementById('kitchen-table-body');
       if (activeOrders.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="6" class="px-4 py-8 text-center text-slate-500 text-xs">No active orders awaiting kitchen dispatch.</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="6" class="px-4 py-8 text-center text-[#8C684E] text-xs font-semibold">No active orders awaiting kitchen dispatch.</td></tr>`;
         return;
       }
 
       tbody.innerHTML = activeOrders.map(o => `
-        <tr class="hover:bg-slate-800/40 transition">
-          <td class="px-4 py-3 font-mono font-bold text-amber-400">TK-${o.tokenNumber}</td>
-          <td class="px-4 py-3 font-medium text-white">${o.customer.name}</td>
-          <td class="px-4 py-3 text-xs text-slate-300">${o.items.map(i => `${i.quantity}x ${i.name}`).join(', ')}</td>
-          <td class="px-4 py-3 font-mono text-slate-200">Rs. ${o.grandTotal.toFixed(2)}</td>
+        <tr class="hover:bg-[#FFF6E5] transition">
+          <td class="px-4 py-3 font-mono font-bold text-[#D97724]">TK-${o.tokenNumber}</td>
+          <td class="px-4 py-3 font-bold text-[#3C2415]">${o.customer.name}</td>
+          <td class="px-4 py-3 text-xs text-[#6B472E] font-medium">${o.items.map(i => `${i.quantity}x ${i.name}`).join(', ')}</td>
+          <td class="px-4 py-3 font-mono font-bold text-[#3C2415]">Rs. ${o.grandTotal.toFixed(2)}</td>
           <td class="px-4 py-3">
-            <span class="px-2 py-0.5 rounded text-[11px] font-bold ${o.statusCode === 3 ? 'bg-emerald-500/20 text-emerald-300' : 'bg-amber-500/20 text-amber-300'}">
+            <span class="px-2 py-0.5 rounded-lg text-[11px] font-bold ${o.statusCode === 3 ? 'bg-[#EAF5EA] text-[#2E7D32] border border-[#A5D6A7]' : 'bg-[#FFE799] text-[#7A4510] border border-[#F0D58A]'}">
               ${o.status}
             </span>
           </td>
           <td class="px-4 py-3 text-right">
             <button onclick="advanceTokenStatus(${o.tokenNumber})" 
-                    class="px-3 py-1.5 rounded-xl bg-brand-600 hover:bg-brand-500 text-white font-bold text-xs transition shadow-sm">
+                    class="px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-[#D97724] to-[#E08A38] hover:from-[#C06216] hover:to-[#CD7425] text-white font-bold text-xs transition shadow-sm">
               ${o.statusCode === 1 ? 'Start Cooking' : (o.statusCode === 2 ? 'Mark Ready' : 'Complete')}
             </button>
           </td>
