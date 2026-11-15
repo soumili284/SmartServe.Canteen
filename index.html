@@ -1,0 +1,1359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SmartServe – Smart College Canteen Ordering System</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts & FontAwesome -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          colors: {
+            capy: {
+              butter: '#FEE799',
+              cream: '#FFFDF7',
+              creambg: '#FFF9ED',
+              card: '#FFFDF9',
+              border: '#EAD1B2',
+              borderdark: '#D4A373',
+              caramel: '#C86A1D',
+              toast: '#D97724',
+              toasthover: '#B85D10',
+              brown: '#9C6B43',
+              espresso: '#3C2415',
+              mocha: '#6B472E',
+              muted: '#8C684E',
+              strawberry: '#F47B89',
+              egg: '#FFB703',
+              matcha: '#2E7D32',
+              matchabg: '#EAF5EA',
+              sauce: '#C62828',
+              saucebg: '#FFEBEE',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      background-image: url('images/canteen_bg.jpg');
+      background-repeat: repeat;
+      background-size: 520px auto;
+      background-attachment: fixed;
+      background-color: #FFF9ED;
+      color: #3C2415;
+    }
+
+    @keyframes pulse-ring {
+      0% { transform: scale(0.96); box-shadow: 0 0 0 0 rgba(46, 125, 50, 0.6); }
+      70% { transform: scale(1); box-shadow: 0 0 0 14px rgba(46, 125, 50, 0); }
+      100% { transform: scale(0.96); box-shadow: 0 0 0 0 rgba(46, 125, 50, 0); }
+    }
+    .ready-pulse {
+      animation: pulse-ring 2s infinite;
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: #FFF3D6;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #D4A373;
+      border-radius: 9999px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+      background: #B87E54;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col font-sans selection:bg-amber-500 selection:text-white">
+
+  <!-- TOP NAVIGATION BAR -->
+  <header class="sticky top-0 z-40 bg-[#FFFDF7]/95 backdrop-blur-md border-b border-[#EAD1B2] shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      
+      <!-- Logo -->
+      <div class="flex items-center gap-3 cursor-pointer" onclick="switchTab('menu')">
+        <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-[#D97724] to-[#F59E0B] flex items-center justify-center text-white shadow-md shadow-amber-500/25">
+          <i class="fa-solid fa-utensils text-xl"></i>
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="text-2xl font-extrabold tracking-tight text-[#3C2415]">SmartServe</span>
+            <span class="text-[10px] uppercase font-bold tracking-wider px-2.5 py-0.5 rounded-full bg-[#FFF0E0] text-[#D97724] border border-[#FFD8B2]"><i class="fa-solid fa-graduation-cap text-[#D97724] mr-1"></i> Campus Canteen</span>
+          </div>
+          <p class="text-xs text-[#6B472E]">Campus Digital Canteen & Live Token System</p>
+        </div>
+      </div>
+
+      <!-- Navigation Tabs -->
+      <nav class="hidden md:flex items-center gap-1 bg-[#FFF6E5] p-1.5 rounded-2xl border border-[#EAD1B2] text-sm font-semibold">
+        <button id="nav-menu" onclick="switchTab('menu')" class="px-4 py-2 rounded-xl transition-all duration-200 bg-gradient-to-r from-[#D97724] to-[#E08A38] text-white shadow-md flex items-center gap-2">
+          <i class="fa-solid fa-book-open"></i> Menu
+        </button>
+        <button id="nav-board" onclick="switchTab('board')" class="px-4 py-2 rounded-xl transition-all duration-200 text-[#6B472E] hover:text-[#3C2415] hover:bg-[#FFEED4] flex items-center gap-2">
+          <i class="fa-solid fa-tv"></i> Live Token Board
+          <span id="nav-active-count" class="px-2 py-0.5 rounded-full text-[11px] bg-[#FFE099] text-[#7A4510] font-mono font-bold">0</span>
+        </button>
+        <button id="nav-track" onclick="switchTab('track')" class="px-4 py-2 rounded-xl transition-all duration-200 text-[#6B472E] hover:text-[#3C2415] hover:bg-[#FFEED4] flex items-center gap-2">
+          <i class="fa-solid fa-magnifying-glass"></i> Track Token
+        </button>
+        <button id="nav-kitchen" onclick="switchTab('kitchen')" class="px-4 py-2 rounded-xl transition-all duration-200 text-[#6B472E] hover:text-[#3C2415] hover:bg-[#FFEED4] flex items-center gap-2">
+          <i class="fa-solid fa-kitchen-set"></i> Kitchen Portal
+        </button>
+      </nav>
+
+      <!-- User Profile & Cart Button -->
+      <div class="flex items-center gap-3">
+        <!-- Profile Pill -->
+        <button onclick="openProfileModal()" class="hidden sm:flex items-center gap-2.5 px-3 py-1.5 rounded-xl bg-[#FFF6E5] border border-[#EAD1B2] hover:border-[#D4A373] transition text-left shadow-sm">
+          <div class="w-8 h-8 rounded-lg bg-[#FFE799] text-[#8C4F18] flex items-center justify-center font-bold text-xs" id="nav-user-avatar">
+            RS
+          </div>
+          <div class="text-xs">
+            <p class="font-bold text-[#3C2415] leading-tight" id="nav-user-name">Rahul Sharma</p>
+            <p class="text-[10px] text-[#2E7D32] font-semibold" id="nav-user-role">Student (5% OFF)</p>
+          </div>
+          <i class="fa-solid fa-chevron-down text-[10px] text-[#8C684E] ml-1"></i>
+        </button>
+
+        <!-- Cart Button -->
+        <button onclick="toggleCartDrawer()" class="relative px-4 py-2.5 rounded-xl bg-gradient-to-r from-[#D97724] to-[#C8671B] hover:from-[#C06216] hover:to-[#B35811] active:scale-95 text-white font-bold flex items-center gap-2.5 transition shadow-lg shadow-amber-600/30">
+          <i class="fa-solid fa-bag-shopping text-base"></i>
+          <span class="hidden sm:inline text-sm">Tray</span>
+          <span id="header-cart-count" class="w-6 h-6 rounded-full bg-white text-[#C8671B] text-xs font-black flex items-center justify-center shadow-sm">0</span>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- MAIN VIEWPORT CONTAINER -->
+  <main class="flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-6">
+
+    <!-- TAB 1: MENU & ORDERING -->
+    <section id="tab-menu" class="space-y-6">
+      
+      <!-- Hero / Notice Banner -->
+      <div class="relative overflow-hidden rounded-3xl bg-gradient-to-r from-[#FFF6DE]/95 via-[#FFFDF7]/95 to-[#FFECC0]/95 p-6 sm:p-8 border border-[#E8CDAC] shadow-xl text-[#3C2415]">
+        <div class="relative z-10 max-w-2xl space-y-3">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#FFE799] border border-[#F0D58A] text-[#7A4510] text-xs font-bold shadow-sm">
+            <i class="fa-solid fa-utensils text-[#8C4F18]"></i> Smart Campus Dining Portal
+          </div>
+          <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-[#3C2415] leading-tight">
+            Fresh Campus Meals, <br class="hidden sm:inline">Skip Queues with <span class="text-[#D97724]">Live Tokens</span>.
+          </h1>
+          <p class="text-sm text-[#6B472E]">
+            Enjoy freshly prepared South Indian dosas, hot chai, crunchy snacks, thali bowls, and student hunger combos. Receive your token number instantly!
+          </p>
+          <div class="flex flex-wrap items-center gap-3 pt-2 text-xs">
+            <span class="px-2.5 py-1 rounded-xl bg-white/90 border border-[#EAD1B2] text-[#6B472E] font-medium flex items-center gap-1.5 shadow-sm">
+              <i class="fa-solid fa-percent text-[#2E7D32]"></i> Student 5% | Faculty 10% Off
+            </span>
+            <span class="px-2.5 py-1 rounded-xl bg-white/90 border border-[#EAD1B2] text-[#6B472E] font-medium flex items-center gap-1.5 shadow-sm">
+              <i class="fa-solid fa-qrcode text-[#D97724]"></i> Instant UPI QR & SmartCard
+            </span>
+            <span class="px-2.5 py-1 rounded-xl bg-white/90 border border-[#EAD1B2] text-[#6B472E] font-medium flex items-center gap-1.5 shadow-sm">
+              <i class="fa-solid fa-receipt text-[#8C4F18]"></i> Auto-Generated Tax Invoices
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Search & Filters Toolbar -->
+      <div class="bg-[#FFFDF7]/95 backdrop-blur-md p-4 rounded-3xl border border-[#EAD1B2] space-y-4 shadow-xl">
+        <div class="flex flex-col md:flex-row gap-3 items-stretch md:items-center justify-between">
+          
+          <!-- Search input -->
+          <div class="relative flex-1">
+            <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-[#8C684E]"></i>
+            <input type="text" id="menu-search-input" oninput="filterMenu()" placeholder="Search dosa, samosa, thali, coffee, combo..." 
+                   class="w-full pl-10 pr-4 py-2.5 rounded-2xl bg-white border border-[#EAD1B2] text-sm text-[#3C2415] placeholder-[#9C7960] focus:outline-none focus:border-[#D97724] focus:ring-1 focus:ring-[#D97724] shadow-sm">
+          </div>
+
+          <!-- Dietary Filter Buttons -->
+          <div class="flex items-center gap-1.5 bg-[#FFF6E5] p-1.5 rounded-2xl border border-[#EAD1B2] text-xs font-bold overflow-x-auto">
+            <button onclick="setDietaryFilter('ALL')" id="diet-ALL" class="px-3 py-1.5 rounded-xl bg-gradient-to-r from-[#D97724] to-[#E08A38] text-white shadow-sm transition">All Diets</button>
+            <button onclick="setDietaryFilter('VEG')" id="diet-VEG" class="px-3 py-1.5 rounded-xl text-[#2E7D32] hover:bg-[#EAF5EA] transition flex items-center gap-1">
+              <span class="w-2.5 h-2.5 rounded-full bg-[#2E7D32]"></span> Veg
+            </button>
+            <button onclick="setDietaryFilter('NON_VEG')" id="diet-NON_VEG" class="px-3 py-1.5 rounded-xl text-[#C62828] hover:bg-[#FFEBEE] transition flex items-center gap-1">
+              <span class="w-2.5 h-2.5 rounded-full bg-[#C62828]"></span> Non-Veg
+            </button>
+            <button onclick="setDietaryFilter('VEGAN')" id="diet-VEGAN" class="px-3 py-1.5 rounded-xl text-[#33691E] hover:bg-[#F1F8E9] transition flex items-center gap-1">
+              <span class="w-2.5 h-2.5 rounded-full bg-[#558B2F]"></span> Vegan
+            </button>
+          </div>
+
+        </div>
+
+        <!-- Category Pills -->
+        <div class="flex items-center gap-2 overflow-x-auto pb-1 custom-scrollbar text-xs font-semibold">
+          <button onclick="setCategoryFilter(0)" id="cat-0" class="category-pill whitespace-nowrap px-4 py-2 rounded-2xl bg-gradient-to-r from-[#D97724] to-[#E08A38] text-white shadow-sm flex items-center gap-1.5">
+            <i class="fa-solid fa-border-all"></i> All Categories
+          </button>
+          <button onclick="setCategoryFilter(1)" id="cat-1" class="category-pill whitespace-nowrap px-4 py-2 rounded-2xl bg-[#FFF6E5] text-[#6B472E] border border-[#EAD1B2] hover:bg-[#FFEED4] hover:text-[#3C2415] flex items-center gap-1.5">
+            <i class="fa-solid fa-egg text-amber-500"></i> Breakfast
+          </button>
+          <button onclick="setCategoryFilter(2)" id="cat-2" class="category-pill whitespace-nowrap px-4 py-2 rounded-2xl bg-[#FFF6E5] text-[#6B472E] border border-[#EAD1B2] hover:bg-[#FFEED4] hover:text-[#3C2415] flex items-center gap-1.5">
+            <i class="fa-solid fa-bowl-rice text-[#2E7D32]"></i> Main Course
+          </button>
+          <button onclick="setCategoryFilter(3)" id="cat-3" class="category-pill whitespace-nowrap px-4 py-2 rounded-2xl bg-[#FFF6E5] text-[#6B472E] border border-[#EAD1B2] hover:bg-[#FFEED4] hover:text-[#3C2415] flex items-center gap-1.5">
+            <i class="fa-solid fa-cookie-bite text-[#D97724]"></i> Snacks
+          </button>
+          <button onclick="setCategoryFilter(4)" id="cat-4" class="category-pill whitespace-nowrap px-4 py-2 rounded-2xl bg-[#FFF6E5] text-[#6B472E] border border-[#EAD1B2] hover:bg-[#FFEED4] hover:text-[#3C2415] flex items-center gap-1.5">
+            <i class="fa-solid fa-mug-hot text-[#A0673B]"></i> Beverages
+          </button>
+          <button onclick="setCategoryFilter(5)" id="cat-5" class="category-pill whitespace-nowrap px-4 py-2 rounded-2xl bg-[#FFF6E5] text-[#6B472E] border border-[#EAD1B2] hover:bg-[#FFEED4] hover:text-[#3C2415] flex items-center gap-1.5">
+            <i class="fa-solid fa-ice-cream text-pink-500"></i> Desserts
+          </button>
+          <button onclick="setCategoryFilter(6)" id="cat-6" class="category-pill whitespace-nowrap px-4 py-2 rounded-2xl bg-[#FFF6E5] text-[#6B472E] border border-[#EAD1B2] hover:bg-[#FFEED4] hover:text-[#3C2415] flex items-center gap-1.5">
+            <i class="fa-solid fa-gift text-amber-600"></i> Student Combos
+          </button>
+        </div>
+      </div>
+
+      <!-- Menu Food Cards Grid -->
+      <div id="menu-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+        <!-- Dynamically rendered via JavaScript -->
+      </div>
+
+    </section>
+
+    <!-- TAB 2: LIVE DIGITAL TOKEN QUEUE BOARD -->
+    <section id="tab-board" class="hidden space-y-6">
+      
+      <!-- Digital Display Board Header -->
+      <div class="rounded-3xl bg-[#FFFDF7]/95 backdrop-blur-md border border-[#EAD1B2] p-6 shadow-xl flex flex-col md:flex-row items-center justify-between gap-4 text-[#3C2415]">
+        <div>
+          <div class="flex items-center gap-3">
+            <span class="w-3.5 h-3.5 rounded-full bg-[#2E7D32] animate-ping"></span>
+            <h2 class="text-2xl font-black tracking-tight text-[#3C2415]">LIVE DIGITAL TOKEN BOARD</h2>
+          </div>
+          <p class="text-xs text-[#6B472E] mt-1">Real-time canteen kitchen queue. Refreshes automatically every 3 seconds.</p>
+        </div>
+        <div class="flex items-center gap-2">
+          <button onclick="fetchTokens()" class="px-3.5 py-2 rounded-xl bg-[#FFF6E5] border border-[#EAD1B2] hover:bg-[#FFEED4] text-xs font-bold text-[#6B472E] flex items-center gap-1.5 shadow-sm">
+            <i class="fa-solid fa-rotate"></i> Refresh
+          </button>
+          <button onclick="switchTab('kitchen')" class="px-4 py-2 rounded-xl bg-gradient-to-r from-[#D97724] to-[#E08A38] text-white text-xs font-bold flex items-center gap-1.5 shadow-md shadow-amber-600/20">
+            <i class="fa-solid fa-kitchen-set"></i> Kitchen Staff Advance
+          </button>
+        </div>
+      </div>
+
+      <!-- Three-column Board Display -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        
+        <!-- COLUMN 1: PREPARING IN KITCHEN -->
+        <div class="rounded-3xl bg-[#FFFDF7]/95 backdrop-blur-md border border-amber-300 p-5 space-y-4 shadow-lg">
+          <div class="flex items-center justify-between pb-3 border-b border-[#F0DFC8]">
+            <div class="flex items-center gap-2 text-[#B85D10] font-black text-sm tracking-wide uppercase">
+              <i class="fa-solid fa-fire-burner text-base"></i> Cooking In Kitchen
+            </div>
+            <span id="board-cooking-count" class="px-2.5 py-0.5 rounded-full bg-[#FFE799] text-[#7A4510] font-mono text-xs font-extrabold">0</span>
+          </div>
+          <div id="board-cooking-list" class="space-y-3 min-h-[300px]">
+            <!-- Rendered via JS -->
+          </div>
+        </div>
+
+        <!-- COLUMN 2: READY FOR PICKUP -->
+        <div class="rounded-3xl bg-[#EAF7ED]/95 backdrop-blur-md border-2 border-[#2E7D32] p-5 space-y-4 shadow-xl relative overflow-hidden">
+          <div class="flex items-center justify-between pb-3 border-b border-[#C8E6C9]">
+            <div class="flex items-center gap-2 text-[#2E7D32] font-black text-sm tracking-wide uppercase">
+              <i class="fa-solid fa-bell text-base animate-bounce"></i> Ready for Pickup!
+            </div>
+            <span id="board-ready-count" class="px-2.5 py-0.5 rounded-full bg-[#C8E6C9] text-[#1B5E20] font-mono text-xs font-extrabold">0</span>
+          </div>
+          <div id="board-ready-list" class="space-y-3 min-h-[300px]">
+            <!-- Rendered via JS -->
+          </div>
+        </div>
+
+        <!-- COLUMN 3: RECENTLY COMPLETED -->
+        <div class="rounded-3xl bg-[#FFFDF7]/95 backdrop-blur-md border border-[#EAD1B2] p-5 space-y-4 shadow-lg">
+          <div class="flex items-center justify-between pb-3 border-b border-[#F0DFC8]">
+            <div class="flex items-center gap-2 text-[#8C684E] font-black text-sm tracking-wide uppercase">
+              <i class="fa-solid fa-circle-check text-base"></i> Collected / Done
+            </div>
+            <span id="board-completed-count" class="px-2.5 py-0.5 rounded-full bg-[#FFF0DE] text-[#8C4F18] font-mono text-xs font-extrabold">0</span>
+          </div>
+          <div id="board-completed-list" class="space-y-3 min-h-[300px]">
+            <!-- Rendered via JS -->
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- TAB 3: TRACK TOKEN -->
+    <section id="tab-track" class="hidden max-w-2xl mx-auto space-y-6">
+      <div class="rounded-3xl bg-[#FFFDF7]/95 backdrop-blur-md border border-[#EAD1B2] p-6 sm:p-8 shadow-xl space-y-6 text-[#3C2415]">
+        <div class="text-center space-y-2">
+          <div class="w-14 h-14 rounded-2xl bg-[#FFE799] text-[#8C4F18] mx-auto flex items-center justify-center text-2xl shadow-sm">
+            <i class="fa-solid fa-ticket"></i>
+          </div>
+          <h2 class="text-2xl font-black text-[#3C2415]">Track Order by Token</h2>
+          <p class="text-xs text-[#6B472E]">Enter your token number to view kitchen preparation progress in real-time.</p>
+        </div>
+
+        <div class="flex gap-2">
+          <div class="relative flex-1">
+            <span class="absolute left-4 top-1/2 -translate-y-1/2 font-mono font-bold text-[#8C684E] text-sm">TK-</span>
+            <input type="number" id="track-token-input" placeholder="101" 
+                   class="w-full pl-12 pr-4 py-3 rounded-2xl bg-white border border-[#EAD1B2] text-[#3C2415] font-mono text-lg font-bold focus:outline-none focus:border-[#D97724] shadow-sm">
+          </div>
+          <button onclick="trackTokenSubmit()" class="px-6 py-3 rounded-2xl bg-gradient-to-r from-[#D97724] to-[#E08A38] text-white font-bold text-sm shadow-md transition">
+            Check Status
+          </button>
+        </div>
+
+        <div id="track-result-box" class="hidden">
+          <!-- Populated dynamically -->
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 4: KITCHEN & ADMIN MANAGEMENT -->
+    <section id="tab-kitchen" class="hidden space-y-6">
+      
+      <!-- Analytics Header Cards -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+        <div class="rounded-2xl bg-[#FFFDF7]/95 backdrop-blur-md border border-[#EAD1B2] p-4 shadow-md">
+          <p class="text-xs font-semibold text-[#8C684E]">Total Gross Revenue</p>
+          <p class="text-2xl font-black text-[#2E7D32] mt-1" id="stat-revenue">Rs. 0.00</p>
+        </div>
+        <div class="rounded-2xl bg-[#FFFDF7]/95 backdrop-blur-md border border-[#EAD1B2] p-4 shadow-md">
+          <p class="text-xs font-semibold text-[#8C684E]">Total Orders Fulfilled</p>
+          <p class="text-2xl font-black text-[#3C2415] mt-1" id="stat-orders">0</p>
+        </div>
+        <div class="rounded-2xl bg-[#FFFDF7]/95 backdrop-blur-md border border-[#EAD1B2] p-4 shadow-md">
+          <p class="text-xs font-semibold text-[#8C684E]">Active Cooking Queue</p>
+          <p class="text-2xl font-black text-[#D97724] mt-1" id="stat-active">0</p>
+        </div>
+        <div class="rounded-2xl bg-[#FFFDF7]/95 backdrop-blur-md border border-[#EAD1B2] p-4 shadow-md">
+          <p class="text-xs font-semibold text-[#8C684E]">Student vs Faculty</p>
+          <p class="text-lg font-bold text-[#6B472E] mt-1" id="stat-ratio">0 / 0</p>
+        </div>
+      </div>
+
+      <!-- Live Kitchen Order Queue Table -->
+      <div class="rounded-3xl bg-[#FFFDF7]/95 backdrop-blur-md border border-[#EAD1B2] p-6 shadow-xl space-y-4">
+        <div class="flex items-center justify-between">
+          <div>
+            <h3 class="text-lg font-bold text-[#3C2415] flex items-center gap-2">
+              <i class="fa-solid fa-list-check text-[#D97724]"></i> Active Kitchen Queue Dispatcher
+            </h3>
+            <p class="text-xs text-[#6B472E]">Advance token stages: Placed &rarr; Preparing &rarr; Ready for Pickup &rarr; Completed</p>
+          </div>
+          <button onclick="fetchAnalytics()" class="px-3 py-1.5 rounded-xl bg-[#FFF6E5] border border-[#EAD1B2] hover:bg-[#FFEED4] text-xs font-bold text-[#6B472E]">
+            <i class="fa-solid fa-rotate"></i> Sync
+          </button>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-sm">
+            <thead class="text-xs uppercase bg-[#FFF6E5] text-[#8C684E] border-b border-[#EAD1B2]">
+              <tr>
+                <th class="px-4 py-3">Token</th>
+                <th class="px-4 py-3">Customer</th>
+                <th class="px-4 py-3">Items Ordered</th>
+                <th class="px-4 py-3">Total</th>
+                <th class="px-4 py-3">Current Status</th>
+                <th class="px-4 py-3 text-right">Dispatch Action</th>
+              </tr>
+            </thead>
+            <tbody id="kitchen-table-body" class="divide-y divide-[#F0DEC7]">
+              <!-- Populated via JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- CART SLIDE-OVER DRAWER -->
+  <div id="cart-drawer-overlay" class="fixed inset-0 bg-[#3C2415]/50 backdrop-blur-sm z-50 hidden transition-opacity" onclick="toggleCartDrawer()"></div>
+  <aside id="cart-drawer" class="fixed right-0 top-0 bottom-0 w-full sm:w-[480px] bg-[#FFFDF7] border-l border-[#EAD1B2] z-50 translate-x-full transition-transform duration-300 flex flex-col shadow-2xl text-[#3C2415]">
+    
+    <!-- Drawer Header -->
+    <div class="p-5 border-b border-[#EAD1B2] flex items-center justify-between bg-[#FFF9EC]">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-[#FFE799] text-[#8C4F18] flex items-center justify-center shadow-sm">
+          <i class="fa-solid fa-bag-shopping"></i>
+        </div>
+        <div>
+          <h3 class="font-black text-[#3C2415] text-base">Your Dining Tray</h3>
+          <p class="text-xs text-[#6B472E]" id="cart-items-count-label">0 items added</p>
+        </div>
+      </div>
+      <button onclick="toggleCartDrawer()" class="w-8 h-8 rounded-lg bg-white border border-[#EAD1B2] text-[#8C684E] hover:text-[#3C2415] flex items-center justify-center">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+
+    <!-- Cart Item List -->
+    <div id="cart-items-container" class="flex-1 overflow-y-auto p-5 space-y-3 custom-scrollbar">
+      <!-- Items dynamically added here -->
+    </div>
+
+    <!-- Promo Coupon Section -->
+    <div class="px-5 py-3 border-t border-[#EAD1B2] bg-[#FFF9EC] space-y-2">
+      <div class="flex gap-2">
+        <input type="text" id="coupon-input" placeholder="Coupon Code (e.g. CAMPUS50)" 
+               class="flex-1 px-3 py-2 rounded-xl bg-white border border-[#EAD1B2] text-xs font-mono uppercase text-[#3C2415] focus:outline-none focus:border-[#D97724]">
+        <button onclick="applyCouponCode()" class="px-4 py-2 rounded-xl bg-[#D97724] hover:bg-[#B85D10] text-xs font-bold text-white transition shadow-sm">
+          Apply
+        </button>
+      </div>
+      <div class="flex gap-1.5 flex-wrap text-[10px]">
+        <button onclick="quickApplyCoupon('CAMPUS50')" class="px-2 py-0.5 rounded-lg bg-[#FFE799] text-[#7A4510] border border-[#F0D58A] hover:bg-[#FCD870] font-bold">CAMPUS50 (Rs. 50 off on &ge;200)</button>
+        <button onclick="quickApplyCoupon('WELCOME10')" class="px-2 py-0.5 rounded-lg bg-[#FFF0DE] text-[#B85D10] border border-[#FFD8B2] hover:bg-[#FFE3C4] font-bold">WELCOME10 (10% extra)</button>
+      </div>
+      <p id="coupon-feedback" class="text-xs hidden font-bold"></p>
+    </div>
+
+    <!-- Financial Breakdown & Checkout -->
+    <div class="p-5 border-t border-[#EAD1B2] bg-[#FFF6E5] space-y-4">
+      <div class="space-y-1.5 text-xs">
+        <div class="flex justify-between text-[#6B472E]">
+          <span>Subtotal</span>
+          <span class="font-mono font-bold text-[#3C2415]" id="cart-subtotal">Rs. 0.00</span>
+        </div>
+        <div class="flex justify-between text-[#2E7D32]">
+          <span id="cart-role-discount-label">Role Privilege Discount (5%)</span>
+          <span class="font-mono font-bold" id="cart-role-discount">- Rs. 0.00</span>
+        </div>
+        <div id="cart-coupon-row" class="flex justify-between text-[#D97724] hidden">
+          <span id="cart-coupon-label">Coupon Discount</span>
+          <span class="font-mono font-bold" id="cart-coupon-discount">- Rs. 0.00</span>
+        </div>
+        <div class="flex justify-between text-[#6B472E]">
+          <span>Canteen GST (5%)</span>
+          <span class="font-mono text-[#3C2415]" id="cart-tax">Rs. 0.00</span>
+        </div>
+        <div class="flex justify-between text-base font-black text-[#3C2415] pt-2 border-t border-[#EAD1B2]">
+          <span>Total Amount</span>
+          <span class="font-mono text-[#D97724] text-lg font-black" id="cart-grandtotal">Rs. 0.00</span>
+        </div>
+      </div>
+
+      <button onclick="openCheckoutModal()" id="btn-proceed-checkout" disabled
+              class="w-full py-3 rounded-2xl bg-gradient-to-r from-[#D97724] to-[#C8671B] hover:from-[#C06216] hover:to-[#B35811] disabled:opacity-50 disabled:cursor-not-allowed text-white font-extrabold text-sm shadow-xl shadow-amber-600/30 transition flex items-center justify-center gap-2">
+        <span>Proceed to Payment</span>
+        <i class="fa-solid fa-arrow-right"></i>
+      </button>
+    </div>
+
+  </aside>
+
+  <!-- CHECKOUT & PAYMENT MODAL -->
+  <div id="checkout-modal" class="fixed inset-0 bg-[#3C2415]/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-[#FFFDF7] border border-[#EAD1B2] w-full max-w-lg rounded-3xl p-6 sm:p-8 space-y-6 shadow-2xl relative text-[#3C2415]">
+      <button onclick="closeCheckoutModal()" class="absolute right-5 top-5 w-8 h-8 rounded-lg bg-[#FFF6E5] border border-[#EAD1B2] text-[#8C684E] hover:text-[#3C2415] flex items-center justify-center">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <div class="flex items-center gap-3">
+        <div class="w-12 h-12 rounded-2xl bg-[#FFE799] text-[#8C4F18] flex items-center justify-center text-xl shadow-sm">
+          <i class="fa-solid fa-credit-card"></i>
+        </div>
+        <div>
+          <h3 class="text-xl font-black text-[#3C2415]">Payment & Token Generation</h3>
+          <p class="text-xs text-[#6B472E]">Amount Due: <span class="font-mono font-bold text-[#D97724] text-sm" id="checkout-due-amount">Rs. 0.00</span></p>
+        </div>
+      </div>
+
+      <!-- Payment Method Tabs -->
+      <div class="grid grid-cols-4 gap-2 text-xs font-bold">
+        <button onclick="setPaymentMethod('UPI')" id="paytab-UPI" class="p-2.5 rounded-2xl border-2 border-[#D97724] bg-[#FFF0E0] text-[#D97724] flex flex-col items-center gap-1">
+          <i class="fa-solid fa-qrcode text-base"></i> UPI / QR
+        </button>
+        <button onclick="setPaymentMethod('WALLET')" id="paytab-WALLET" class="p-2.5 rounded-2xl border border-[#EAD1B2] bg-[#FFF6E5] text-[#6B472E] flex flex-col items-center gap-1">
+          <i class="fa-solid fa-wallet text-base"></i> SmartCard
+        </button>
+        <button onclick="setPaymentMethod('CASH')" id="paytab-CASH" class="p-2.5 rounded-2xl border border-[#EAD1B2] bg-[#FFF6E5] text-[#6B472E] flex flex-col items-center gap-1">
+          <i class="fa-solid fa-money-bill-wave text-base"></i> Cash Desk
+        </button>
+        <button onclick="setPaymentMethod('CARD')" id="paytab-CARD" class="p-2.5 rounded-2xl border border-[#EAD1B2] bg-[#FFF6E5] text-[#6B472E] flex flex-col items-center gap-1">
+          <i class="fa-solid fa-credit-card text-base"></i> Card
+        </button>
+      </div>
+
+      <!-- Payment Details Box -->
+      <div id="payment-details-view" class="rounded-2xl bg-[#FFF8ED] p-4 border border-[#EAD1B2] min-h-[160px] flex flex-col justify-center text-center">
+        <!-- Rendered via JS -->
+      </div>
+
+      <button onclick="confirmOrderAndPay()" id="btn-pay-confirm"
+              class="w-full py-3.5 rounded-2xl bg-gradient-to-r from-[#D97724] to-[#C8671B] hover:from-[#C06216] hover:to-[#B35811] text-white font-black text-sm shadow-xl shadow-amber-600/30 transition flex items-center justify-center gap-2">
+        <i class="fa-solid fa-lock"></i>
+        <span>Confirm Payment & Print Token</span>
+      </button>
+
+    </div>
+  </div>
+
+  <!-- ORDER SUCCESS & TOKEN MODAL -->
+  <div id="success-modal" class="fixed inset-0 bg-[#3C2415]/70 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-[#FFFDF7] border-2 border-[#D97724] w-full max-w-md rounded-3xl p-6 sm:p-8 space-y-6 text-center shadow-2xl relative text-[#3C2415]">
+      
+      <div class="w-16 h-16 rounded-full bg-[#EAF5EA] text-[#2E7D32] border border-[#A5D6A7] flex items-center justify-center text-3xl mx-auto ready-pulse">
+        <i class="fa-solid fa-check"></i>
+      </div>
+
+      <div class="space-y-1">
+        <span class="text-xs uppercase font-extrabold tracking-widest text-[#2E7D32]">Order Placed Successfully!</span>
+        <h2 class="text-2xl font-black text-[#3C2415]">Your Canteen Token Number</h2>
+      </div>
+
+      <!-- Big Token Display -->
+      <div class="p-6 rounded-3xl bg-gradient-to-b from-[#FFF5DC] to-[#FFE799] border-2 border-[#D97724] shadow-inner space-y-2">
+        <p class="text-xs uppercase font-extrabold text-[#7A4510]">Order Token</p>
+        <p class="text-5xl font-black font-mono tracking-wider text-[#3C2415]" id="success-token-number">TK-101</p>
+        <p class="text-xs text-[#8C4F18] font-bold" id="success-prep-time">Estimated wait: ~10 minutes</p>
+      </div>
+
+      <p class="text-xs text-[#6B472E]">
+        Please watch the Live Digital Token Board. When your token turns <span class="text-[#2E7D32] font-black">GREEN</span>, please proceed to Counter #1 to collect your tray!
+      </p>
+
+      <div class="flex flex-col gap-2 pt-2">
+        <a id="btn-download-receipt" href="#" target="_blank"
+           class="w-full py-2.5 rounded-xl bg-[#FFF6E5] hover:bg-[#FFEED4] text-xs font-bold text-[#6B472E] border border-[#EAD1B2] flex items-center justify-center gap-2">
+          <i class="fa-solid fa-receipt text-[#D97724]"></i> View / Download Tax Invoice (.txt)
+        </a>
+        <button onclick="closeSuccessAndShowBoard()" class="w-full py-3 rounded-xl bg-gradient-to-r from-[#D97724] to-[#E08A38] text-white font-bold text-sm shadow-md">
+          Watch on Live Token Board
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- USER PROFILE MODAL -->
+  <div id="profile-modal" class="fixed inset-0 bg-[#3C2415]/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-[#FFFDF7] border border-[#EAD1B2] w-full max-w-sm rounded-3xl p-6 space-y-5 shadow-2xl relative text-[#3C2415]">
+      <button onclick="closeProfileModal()" class="absolute right-4 top-4 w-7 h-7 rounded-lg bg-[#FFF6E5] border border-[#EAD1B2] text-[#8C684E] hover:text-[#3C2415] flex items-center justify-center">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <h3 class="text-lg font-black text-[#3C2415]">Dining Profile & Role</h3>
+      
+      <div class="space-y-3 text-xs">
+        <div>
+          <label class="block text-[#6B472E] font-semibold mb-1">Full Name</label>
+          <input type="text" id="prof-name" value="Rahul Sharma" class="w-full px-3 py-2 rounded-xl bg-white border border-[#EAD1B2] text-[#3C2415] font-medium">
+        </div>
+        <div>
+          <label class="block text-[#6B472E] font-semibold mb-1">Roll Number / Emp ID</label>
+          <input type="text" id="prof-id" value="CS24-105" class="w-full px-3 py-2 rounded-xl bg-white border border-[#EAD1B2] text-[#3C2415] font-medium">
+        </div>
+        <div>
+          <label class="block text-[#6B472E] font-semibold mb-1">Role & Privilege Discount</label>
+          <select id="prof-role" class="w-full px-3 py-2 rounded-xl bg-white border border-[#EAD1B2] text-[#3C2415] font-medium">
+            <option value="Student">Student (5% Campus Discount)</option>
+            <option value="Faculty">Faculty / Staff (10% Discount)</option>
+          </select>
+        </div>
+        <div class="p-3 rounded-xl bg-[#FFF6E5] border border-[#EAD1B2] flex items-center justify-between">
+          <div>
+            <p class="text-[11px] text-[#8C684E]">Campus Wallet Balance</p>
+            <p class="text-base font-black text-[#2E7D32]" id="prof-wallet-val">Rs. 450.00</p>
+          </div>
+          <button onclick="topUpWallet()" class="px-2.5 py-1 rounded-lg bg-[#EAF5EA] text-[#2E7D32] border border-[#A5D6A7] text-[11px] font-black">
+            + Top Up
+          </button>
+        </div>
+      </div>
+
+      <button onclick="saveProfile()" class="w-full py-2.5 rounded-xl bg-gradient-to-r from-[#D97724] to-[#E08A38] text-white font-bold text-xs shadow-md">
+        Save Profile
+      </button>
+    </div>
+  </div>
+
+  <!-- JAVASCRIPT APPLICATION LOGIC -->
+  <script>
+    // System State
+    let menuItems = [];
+    let cart = [];
+    let activeCategory = 0;
+    let activeDietary = 'ALL';
+    let searchQuery = '';
+    let appliedCoupon = null;
+    let selectedPayment = 'UPI';
+
+    let currentUser = {
+      name: "Rahul Sharma",
+      id: "CS24-105",
+      role: "Student", // "Student" (5%) or "Faculty" (10%)
+      contact: "9876543210",
+      wallet: 450.0
+    };
+
+    // Initialize App
+    document.addEventListener("DOMContentLoaded", () => {
+      fetchMenu();
+      fetchTokens();
+      setInterval(fetchTokens, 3000); // 3-second live queue polling
+      updateUserDisplay();
+    });
+
+    function switchTab(tabId) {
+      ['menu', 'board', 'track', 'kitchen'].forEach(t => {
+        const tabEl = document.getElementById(`tab-${t}`);
+        const navEl = document.getElementById(`nav-${t}`);
+        if (t === tabId) {
+          tabEl.classList.remove('hidden');
+          navEl.className = "px-4 py-2 rounded-xl transition-all duration-200 bg-gradient-to-r from-[#D97724] to-[#E08A38] text-white shadow-md flex items-center gap-2";
+        } else {
+          tabEl.classList.add('hidden');
+          navEl.className = "px-4 py-2 rounded-xl transition-all duration-200 text-[#6B472E] hover:text-[#3C2415] hover:bg-[#FFEED4] flex items-center gap-2";
+        }
+      });
+      if (tabId === 'kitchen') {
+        fetchAnalytics();
+      }
+    }
+
+    const FALLBACK_MENU = [
+      {"type":"Food","id":101,"name":"Masala Dosa","price":60,"categoryId":1,"category":"Breakfast","dietaryId":0,"dietary":"Veg","spiceLevel":"Medium","prepTimeMinutes":8,"stock":40,"available":true},
+      {"type":"Food","id":102,"name":"Idli Sambar (2 pcs)","price":40,"categoryId":1,"category":"Breakfast","dietaryId":0,"dietary":"Veg","spiceLevel":"Mild","prepTimeMinutes":5,"stock":45,"available":true},
+      {"type":"Food","id":103,"name":"Indori Poha with Sev","price":35,"categoryId":1,"category":"Breakfast","dietaryId":0,"dietary":"Veg","spiceLevel":"Mild","prepTimeMinutes":4,"stock":45,"available":true},
+      {"type":"Food","id":104,"name":"Aloo Paratha with Curd","price":50,"categoryId":1,"category":"Breakfast","dietaryId":0,"dietary":"Veg","spiceLevel":"Medium","prepTimeMinutes":10,"stock":35,"available":true},
+      {"type":"Food","id":201,"name":"Special Veg Thali","price":120,"categoryId":2,"category":"Main Course","dietaryId":0,"dietary":"Veg","spiceLevel":"Medium","prepTimeMinutes":12,"stock":30,"available":true},
+      {"type":"Food","id":202,"name":"Hyderabadi Chicken Biryani","price":160,"categoryId":2,"category":"Main Course","dietaryId":1,"dietary":"Non-Veg","spiceLevel":"Spicy","prepTimeMinutes":10,"stock":35,"available":true},
+      {"type":"Food","id":203,"name":"Paneer Butter Masala + Naan","price":140,"categoryId":2,"category":"Main Course","dietaryId":0,"dietary":"Veg","spiceLevel":"Medium","prepTimeMinutes":12,"stock":25,"available":true},
+      {"type":"Food","id":204,"name":"Dilli Rajma Chawal Bowl","price":80,"categoryId":2,"category":"Main Course","dietaryId":0,"dietary":"Veg","spiceLevel":"Medium","prepTimeMinutes":6,"stock":40,"available":true},
+      {"type":"Food","id":301,"name":"Crispy Samosa (2 pcs)","price":30,"categoryId":3,"category":"Snacks","dietaryId":0,"dietary":"Veg","spiceLevel":"Spicy","prepTimeMinutes":3,"stock":60,"available":true},
+      {"type":"Food","id":302,"name":"Veg Cheese Grilled Sandwich","price":70,"categoryId":3,"category":"Snacks","dietaryId":0,"dietary":"Veg","spiceLevel":"Mild","prepTimeMinutes":7,"stock":30,"available":true},
+      {"type":"Food","id":303,"name":"Paneer Tikka Kathi Roll","price":85,"categoryId":3,"category":"Snacks","dietaryId":0,"dietary":"Veg","spiceLevel":"Spicy","prepTimeMinutes":8,"stock":25,"available":true},
+      {"type":"Food","id":304,"name":"Peri Peri French Fries","price":65,"categoryId":3,"category":"Snacks","dietaryId":2,"dietary":"Vegan","spiceLevel":"Spicy","prepTimeMinutes":6,"stock":40,"available":true},
+      {"type":"Beverage","id":401,"name":"Adrak Masala Chai","price":15,"categoryId":4,"category":"Beverages","isHot":true,"volumeMl":150,"caffeine":true,"stock":95,"available":true},
+      {"type":"Beverage","id":402,"name":"South Indian Filter Coffee","price":25,"categoryId":4,"category":"Beverages","isHot":true,"volumeMl":180,"caffeine":true,"stock":80,"available":true},
+      {"type":"Beverage","id":403,"name":"Thick Cold Coffee w/ Cream","price":55,"categoryId":4,"category":"Beverages","isHot":false,"volumeMl":300,"caffeine":true,"stock":50,"available":true},
+      {"type":"Beverage","id":404,"name":"Chilled Fresh Lime Soda","price":35,"categoryId":4,"category":"Beverages","isHot":false,"volumeMl":250,"caffeine":false,"stock":60,"available":true},
+      {"type":"Food","id":501,"name":"Hot Gulab Jamun (2 pcs)","price":40,"categoryId":5,"category":"Desserts","dietaryId":0,"dietary":"Veg","spiceLevel":"Mild","prepTimeMinutes":2,"stock":40,"available":true},
+      {"type":"Food","id":502,"name":"Warm Brownie with Vanilla","price":75,"categoryId":5,"category":"Desserts","dietaryId":0,"dietary":"Veg","spiceLevel":"Mild","prepTimeMinutes":4,"stock":25,"available":true},
+      {"type":"Combo","id":601,"name":"Campus Hunger Buster Combo","price":160,"categoryId":6,"category":"Combos","originalPrice":190,"includedItems":["Veg Cheese Sandwich","Peri Peri Fries","Cold Coffee"],"stock":20,"available":true},
+      {"type":"Combo","id":602,"name":"Morning South Indian Combo","price":95,"categoryId":6,"category":"Combos","originalPrice":115,"includedItems":["Masala Dosa","Idli (1 pc)","Filter Coffee"],"stock":25,"available":true}
+    ];
+
+    // Menu Retrieval & Filtering
+    async function fetchMenu() {
+      try {
+        const res = await fetch('/api/menu');
+        const data = await res.json();
+        if (data.success && data.items && data.items.length > 0) {
+          menuItems = data.items;
+          renderMenu();
+          return;
+        }
+      } catch (err) {
+        console.warn("Using offline fallback menu:", err);
+      }
+      menuItems = [...FALLBACK_MENU];
+      renderMenu();
+    }
+
+    function renderMenu() {
+      const grid = document.getElementById('menu-grid');
+      grid.innerHTML = '';
+
+      const filtered = menuItems.filter(item => {
+        // Category filter
+        if (activeCategory !== 0 && item.categoryId !== activeCategory) return false;
+        // Dietary filter
+        if (activeDietary === 'VEG' && item.dietaryId !== 0) return false;
+        if (activeDietary === 'NON_VEG' && item.dietaryId !== 1) return false;
+        if (activeDietary === 'VEGAN' && item.dietaryId !== 2) return false;
+        // Search query
+        if (searchQuery) {
+          const q = searchQuery.toLowerCase();
+          const matchName = item.name.toLowerCase().includes(q);
+          const matchCat = (item.category || '').toLowerCase().includes(q);
+          if (!matchName && !matchCat) return false;
+        }
+        return true;
+      });
+
+      if (filtered.length === 0) {
+        grid.innerHTML = `
+          <div class="col-span-full py-16 text-center text-[#8C684E] space-y-2 bg-[#FFFDF7]/90 rounded-3xl border border-[#EAD1B2]">
+            <i class="fa-solid fa-utensils text-4xl text-[#D4A373]"></i>
+            <p class="text-sm font-bold text-[#3C2415]">No food or beverage items found matching your filter.</p>
+          </div>
+        `;
+        return;
+      }
+
+      filtered.forEach(item => {
+        const isAvailable = item.available && item.stock > 0;
+        
+        // Dietary tag
+        let dietBadge = '<span class="px-2 py-0.5 rounded-lg text-[10px] font-bold bg-[#EAF5EA] text-[#2E7D32] border border-[#A5D6A7]">VEG</span>';
+        if (item.dietaryId === 1) {
+          dietBadge = '<span class="px-2 py-0.5 rounded-lg text-[10px] font-bold bg-[#FFEBEE] text-[#C62828] border border-[#EF9A9A]">NON-VEG</span>';
+        } else if (item.dietaryId === 2) {
+          dietBadge = '<span class="px-2 py-0.5 rounded-lg text-[10px] font-bold bg-[#F1F8E9] text-[#33691E] border border-[#C5E1A5]">VEGAN</span>';
+        }
+
+        // Subtitle & icon
+        let specTag = '';
+        if (item.type === 'Food') {
+          specTag = `<span class="text-[11px] text-[#6B472E] font-medium"><i class="fa-solid fa-pepper-hot text-[#D97724]"></i> ${item.spiceLevel || 'Mild'}</span>`;
+        } else if (item.type === 'Beverage') {
+          specTag = `<span class="text-[11px] text-[#6B472E] font-medium">${item.isHot ? '<i class="fa-solid fa-mug-hot text-[#A0673B]"></i> Hot' : '<i class="fa-solid fa-snowflake text-sky-600"></i> Chilled'} • ${item.volumeMl || 200}ml</span>`;
+        } else if (item.type === 'Combo') {
+          specTag = `<span class="text-[11px] text-[#D97724] font-bold"><i class="fa-solid fa-gift"></i> Save Rs. ${(item.originalPrice - item.price).toFixed(0)}</span>`;
+        }
+
+        // Stock status
+        let stockHtml = `<span class="text-xs text-[#2E7D32] font-semibold"><i class="fa-solid fa-circle-check text-[10px]"></i> In Stock (${item.stock})</span>`;
+        if (!isAvailable) {
+          stockHtml = `<span class="text-xs text-[#C62828] font-bold"><i class="fa-solid fa-ban text-[10px]"></i> Out of Stock</span>`;
+        } else if (item.stock < 10) {
+          stockHtml = `<span class="text-xs text-[#D97724] font-bold"><i class="fa-solid fa-triangle-exclamation text-[10px]"></i> Only ${item.stock} left</span>`;
+        }
+
+        const card = document.createElement('div');
+        card.className = `rounded-3xl bg-[#FFFDF7]/95 backdrop-blur-md border border-[#EAD1B2] p-5 flex flex-col justify-between transition-all duration-200 hover:border-[#D4A373] hover:shadow-xl hover:-translate-y-0.5 ${!isAvailable ? 'opacity-60' : ''}`;
+        card.innerHTML = `
+          <div class="space-y-3">
+            <div class="flex items-start justify-between gap-2">
+              <span class="text-xs font-mono font-bold text-[#8C684E]">#${item.id}</span>
+              ${dietBadge}
+            </div>
+
+            <div>
+              <h4 class="font-extrabold text-[#3C2415] text-base leading-tight">${item.name}</h4>
+              <p class="text-xs text-[#8C684E] mt-0.5 font-medium">${item.category}</p>
+            </div>
+
+            <div class="flex items-center justify-between pt-1">
+              ${specTag}
+              ${stockHtml}
+            </div>
+
+            ${item.type === 'Combo' && item.includedItems ? `
+              <div class="p-2.5 rounded-2xl bg-[#FFF9EC] border border-[#EAD1B2] text-[11px] text-[#6B472E] space-y-1">
+                <span class="font-bold text-[#D97724]">Includes:</span>
+                <ul class="list-disc list-inside space-y-0.5 text-[#6B472E]">
+                  ${item.includedItems.map(si => `<li>${si}</li>`).join('')}
+                </ul>
+              </div>
+            ` : ''}
+          </div>
+
+          <div class="pt-4 mt-4 border-t border-[#F0DEC7] flex items-center justify-between gap-2">
+            <div>
+              <span class="text-[11px] text-[#8C684E] font-medium">Price</span>
+              <p class="text-lg font-black font-mono text-[#3C2415]">Rs. ${item.price.toFixed(2)}</p>
+            </div>
+
+            ${isAvailable ? `
+              <button onclick="addToCart(${item.id})" class="px-4 py-2 rounded-xl bg-gradient-to-r from-[#D97724] to-[#E08A38] hover:from-[#C06216] hover:to-[#CD7425] active:scale-95 text-white font-bold text-xs shadow-md shadow-amber-600/25 transition flex items-center gap-1.5">
+                <i class="fa-solid fa-plus"></i> Add
+              </button>
+            ` : `
+              <span class="text-xs text-[#8C684E] font-semibold px-3 py-1.5 rounded-xl bg-[#FFF6E5]">Unavailable</span>
+            `}
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    function setCategoryFilter(catId) {
+      activeCategory = catId;
+      document.querySelectorAll('.category-pill').forEach(btn => {
+        btn.className = "category-pill whitespace-nowrap px-4 py-2 rounded-2xl bg-[#FFF6E5] text-[#6B472E] border border-[#EAD1B2] hover:bg-[#FFEED4] hover:text-[#3C2415] flex items-center gap-1.5 font-semibold";
+      });
+      const activeBtn = document.getElementById(`cat-${catId}`);
+      if (activeBtn) {
+        activeBtn.className = "category-pill whitespace-nowrap px-4 py-2 rounded-2xl bg-gradient-to-r from-[#D97724] to-[#E08A38] text-white shadow-sm flex items-center gap-1.5 font-semibold";
+      }
+      renderMenu();
+    }
+
+    function setDietaryFilter(diet) {
+      activeDietary = diet;
+      ['ALL', 'VEG', 'NON_VEG', 'VEGAN'].forEach(d => {
+        const btn = document.getElementById(`diet-${d}`);
+        if (d === diet) {
+          btn.className = "px-3 py-1.5 rounded-xl bg-gradient-to-r from-[#D97724] to-[#E08A38] text-white shadow-sm transition font-bold";
+        } else {
+          let col = "text-[#6B472E]";
+          if (d === 'VEG') col = "text-[#2E7D32]";
+          if (d === 'NON_VEG') col = "text-[#C62828]";
+          if (d === 'VEGAN') col = "text-[#33691E]";
+          btn.className = `px-3 py-1.5 rounded-xl ${col} hover:bg-white transition flex items-center gap-1 font-bold`;
+        }
+      });
+      renderMenu();
+    }
+
+    function filterMenu() {
+      searchQuery = document.getElementById('menu-search-input').value;
+      renderMenu();
+    }
+
+    // Cart Operations
+    function addToCart(itemId) {
+      const item = menuItems.find(m => m.id === itemId);
+      if (!item) return;
+
+      const existing = cart.find(c => c.id === itemId);
+      if (existing) {
+        if (existing.quantity < item.stock) {
+          existing.quantity += 1;
+        } else {
+          alert(`Maximum available stock reached for ${item.name}`);
+        }
+      } else {
+        cart.push({
+          id: item.id,
+          name: item.name,
+          price: item.price,
+          quantity: 1,
+          notes: ""
+        });
+      }
+      updateCartDisplay();
+    }
+
+    function updateCartQty(itemId, delta) {
+      const idx = cart.findIndex(c => c.id === itemId);
+      if (idx === -1) return;
+      cart[idx].quantity += delta;
+      if (cart[idx].quantity <= 0) {
+        cart.splice(idx, 1);
+      }
+      updateCartDisplay();
+    }
+
+    function updateCartNote(itemId, noteText) {
+      const item = cart.find(c => c.id === itemId);
+      if (item) {
+        item.notes = noteText;
+      }
+    }
+
+    function updateCartDisplay() {
+      const container = document.getElementById('cart-items-container');
+      const countLabel = document.getElementById('cart-items-count-label');
+      const headerCount = document.getElementById('header-cart-count');
+      const checkoutBtn = document.getElementById('btn-proceed-checkout');
+
+      const totalItems = cart.reduce((acc, itm) => acc + itm.quantity, 0);
+      headerCount.textContent = totalItems;
+      countLabel.textContent = `${totalItems} item(s) in tray`;
+
+      if (cart.length === 0) {
+        container.innerHTML = `
+          <div class="py-16 text-center text-[#8C684E] space-y-2">
+            <i class="fa-solid fa-basket-shopping text-4xl text-[#D4A373]"></i>
+            <p class="text-sm font-bold text-[#3C2415]">Your dining tray is empty.</p>
+            <p class="text-xs text-[#8C684E]">Pick tasty treats from the canteen menu!</p>
+          </div>
+        `;
+        checkoutBtn.disabled = true;
+        recalculateBill(0.0);
+        return;
+      }
+
+      checkoutBtn.disabled = false;
+      container.innerHTML = '';
+
+      let subtotal = 0.0;
+
+      cart.forEach(item => {
+        const lineTotal = item.price * item.quantity;
+        subtotal += lineTotal;
+
+        const row = document.createElement('div');
+        row.className = "p-3.5 rounded-2xl bg-[#FFF9EC] border border-[#EAD1B2] space-y-2 text-[#3C2415]";
+        row.innerHTML = `
+          <div class="flex items-start justify-between gap-2">
+            <div>
+              <p class="font-extrabold text-[#3C2415] text-xs leading-tight">${item.name}</p>
+              <p class="text-[11px] font-mono text-[#D97724] font-bold">Rs. ${item.price.toFixed(2)} each</p>
+            </div>
+            <p class="font-mono font-black text-[#3C2415] text-xs">Rs. ${lineTotal.toFixed(2)}</p>
+          </div>
+
+          <div class="flex items-center justify-between gap-2">
+            <input type="text" value="${item.notes || ''}" onchange="updateCartNote(${item.id}, this.value)" 
+                   placeholder="Special note (e.g. Less spicy / Extra sauce)" 
+                   class="flex-1 px-2.5 py-1 rounded-lg bg-white border border-[#EAD1B2] text-[11px] text-[#3C2415] placeholder-[#9C7960] focus:outline-none focus:border-[#D97724]">
+            
+            <div class="flex items-center gap-1.5 bg-white px-2 py-1 rounded-lg border border-[#EAD1B2]">
+              <button onclick="updateCartQty(${item.id}, -1)" class="w-5 h-5 rounded text-[#8C684E] hover:text-[#3C2415] flex items-center justify-center font-bold text-xs">-</button>
+              <span class="w-6 text-center font-mono font-bold text-xs text-[#3C2415]">${item.quantity}</span>
+              <button onclick="updateCartQty(${item.id}, 1)" class="w-5 h-5 rounded text-[#8C684E] hover:text-[#3C2415] flex items-center justify-center font-bold text-xs">+</button>
+            </div>
+          </div>
+        `;
+        container.appendChild(row);
+      });
+
+      recalculateBill(subtotal);
+    }
+
+    function recalculateBill(subtotal) {
+      const discountRate = currentUser.role === 'Faculty' ? 0.10 : 0.05;
+      const userDiscount = subtotal * discountRate;
+      const discountedSubtotal = subtotal - userDiscount;
+
+      let couponDiscount = 0.0;
+      if (appliedCoupon === 'CAMPUS50' && discountedSubtotal >= 200.0) {
+        couponDiscount = 50.0;
+      } else if (appliedCoupon === 'WELCOME10') {
+        couponDiscount = discountedSubtotal * 0.10;
+      } else if (appliedCoupon === 'SNACK5' && discountedSubtotal >= 50.0) {
+        couponDiscount = 5.0;
+      }
+
+      const taxable = Math.max(0.0, discountedSubtotal - couponDiscount);
+      const tax = taxable * 0.05; // 5% GST
+      const grandTotal = taxable + tax;
+
+      document.getElementById('cart-subtotal').textContent = `Rs. ${subtotal.toFixed(2)}`;
+      document.getElementById('cart-role-discount-label').textContent = `${currentUser.role} Privilege (${(discountRate * 100).toFixed(0)}%)`;
+      document.getElementById('cart-role-discount').textContent = `- Rs. ${userDiscount.toFixed(2)}`;
+
+      const couponRow = document.getElementById('cart-coupon-row');
+      if (couponDiscount > 0.0) {
+        couponRow.classList.remove('hidden');
+        document.getElementById('cart-coupon-label').textContent = `Promo Code [${appliedCoupon}]`;
+        document.getElementById('cart-coupon-discount').textContent = `- Rs. ${couponDiscount.toFixed(2)}`;
+      } else {
+        couponRow.classList.add('hidden');
+      }
+
+      document.getElementById('cart-tax').textContent = `Rs. ${tax.toFixed(2)}`;
+      document.getElementById('cart-grandtotal').textContent = `Rs. ${grandTotal.toFixed(2)}`;
+      document.getElementById('checkout-due-amount').textContent = `Rs. ${grandTotal.toFixed(2)}`;
+    }
+
+    function applyCouponCode() {
+      const code = document.getElementById('coupon-input').value.trim().toUpperCase();
+      quickApplyCoupon(code);
+    }
+
+    function quickApplyCoupon(code) {
+      const feedback = document.getElementById('coupon-feedback');
+      feedback.classList.remove('hidden', 'text-[#2E7D32]', 'text-[#C62828]');
+
+      if (code === 'CAMPUS50' || code === 'WELCOME10' || code === 'SNACK5') {
+        appliedCoupon = code;
+        feedback.classList.add('text-[#2E7D32]');
+        feedback.textContent = `Promo code '${code}' applied successfully!`;
+      } else {
+        appliedCoupon = null;
+        feedback.classList.add('text-[#C62828]');
+        feedback.textContent = "Invalid promo code.";
+      }
+      updateCartDisplay();
+    }
+
+    function toggleCartDrawer() {
+      const drawer = document.getElementById('cart-drawer');
+      const overlay = document.getElementById('cart-drawer-overlay');
+      const isOpen = !drawer.classList.contains('translate-x-full');
+
+      if (isOpen) {
+        drawer.classList.add('translate-x-full');
+        overlay.classList.add('hidden');
+      } else {
+        drawer.classList.remove('translate-x-full');
+        overlay.classList.remove('hidden');
+      }
+    }
+
+    // Checkout & Payment
+    function openCheckoutModal() {
+      toggleCartDrawer();
+      setPaymentMethod('UPI');
+      document.getElementById('checkout-modal').classList.remove('hidden');
+    }
+
+    function closeCheckoutModal() {
+      document.getElementById('checkout-modal').classList.add('hidden');
+    }
+
+    function setPaymentMethod(method) {
+      selectedPayment = method;
+      ['UPI', 'WALLET', 'CASH', 'CARD'].forEach(m => {
+        const btn = document.getElementById(`paytab-${m}`);
+        if (m === method) {
+          btn.className = "p-2.5 rounded-2xl border-2 border-[#D97724] bg-[#FFF0E0] text-[#D97724] flex flex-col items-center gap-1 font-bold";
+        } else {
+          btn.className = "p-2.5 rounded-2xl border border-[#EAD1B2] bg-[#FFF6E5] text-[#6B472E] flex flex-col items-center gap-1 font-semibold";
+        }
+      });
+
+      const detailsBox = document.getElementById('payment-details-view');
+
+      if (method === 'UPI') {
+        detailsBox.innerHTML = `
+          <div class="space-y-2">
+            <div class="w-24 h-24 bg-white p-2 rounded-2xl mx-auto shadow-md border border-[#EAD1B2]">
+              <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=upi://pay?pa=smartserve@campus" alt="QR" class="w-full h-full object-contain">
+            </div>
+            <p class="text-xs font-mono font-bold text-[#D97724]">UPI ID: smartserve@campus</p>
+            <p class="text-[11px] text-[#6B472E]">Scan using Google Pay, PhonePe, Paytm or BHIM</p>
+          </div>
+        `;
+      } else if (method === 'WALLET') {
+        detailsBox.innerHTML = `
+          <div class="space-y-2">
+            <i class="fa-solid fa-id-card text-3xl text-[#2E7D32]"></i>
+            <p class="text-xs font-bold text-[#3C2415]">College SmartCard / Dining Wallet</p>
+            <p class="text-xs text-[#6B472E]">Available Balance: <span class="font-mono text-[#2E7D32] font-black">Rs. ${currentUser.wallet.toFixed(2)}</span></p>
+            <p class="text-[11px] text-[#8C684E]">Amount will be debited instantly on order confirmation.</p>
+          </div>
+        `;
+      } else if (method === 'CASH') {
+        detailsBox.innerHTML = `
+          <div class="space-y-2">
+            <i class="fa-solid fa-cash-register text-3xl text-[#D97724]"></i>
+            <p class="text-xs font-bold text-[#3C2415]">Cash Payment at Counter #1</p>
+            <p class="text-[11px] text-[#6B472E]">Please show your digital token to the cashier when paying and collecting.</p>
+          </div>
+        `;
+      } else if (method === 'CARD') {
+        detailsBox.innerHTML = `
+          <div class="space-y-2 text-left max-w-xs mx-auto">
+            <div>
+              <label class="text-[10px] text-[#8C684E] font-bold">Card Number</label>
+              <input type="text" placeholder="**** **** **** 4821" value="4532 8920 1824 4821" class="w-full px-2.5 py-1.5 rounded-lg bg-white border border-[#EAD1B2] text-xs text-[#3C2415] font-mono">
+            </div>
+            <div class="flex gap-2">
+              <div class="flex-1">
+                <label class="text-[10px] text-[#8C684E] font-bold">Exp</label>
+                <input type="text" placeholder="MM/YY" value="08/28" class="w-full px-2.5 py-1.5 rounded-lg bg-white border border-[#EAD1B2] text-xs text-[#3C2415] font-mono">
+              </div>
+              <div class="w-20">
+                <label class="text-[10px] text-[#8C684E] font-bold">CVV</label>
+                <input type="password" placeholder="***" value="782" class="w-full px-2.5 py-1.5 rounded-lg bg-white border border-[#EAD1B2] text-xs text-[#3C2415] font-mono">
+              </div>
+            </div>
+          </div>
+        `;
+      }
+    }
+
+    async function confirmOrderAndPay() {
+      const btn = document.getElementById('btn-pay-confirm');
+      btn.disabled = true;
+      btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Processing Order & Token...`;
+
+      const payload = {
+        customer: {
+          name: currentUser.name,
+          role: currentUser.role,
+          id: currentUser.id,
+          contact: currentUser.contact
+        },
+        items: cart,
+        couponCode: appliedCoupon || "",
+        payment: {
+          method: selectedPayment,
+          ref: `REF-${Math.floor(Math.random() * 900000 + 100000)}`
+        }
+      };
+
+      try {
+        const res = await fetch('/api/order', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        const data = await res.json();
+        if (data.success) {
+          const ord = data.order;
+          closeCheckoutModal();
+          cart = [];
+          appliedCoupon = null;
+          updateCartDisplay();
+
+          // Deduct wallet if wallet selected
+          if (selectedPayment === 'WALLET') {
+            currentUser.wallet = Math.max(0, currentUser.wallet - ord.grandTotal);
+            updateUserDisplay();
+          }
+
+          // Show Success Modal
+          document.getElementById('success-token-number').textContent = `TK-${ord.tokenNumber}`;
+          document.getElementById('success-prep-time').textContent = `Estimated wait: ~${ord.prepMinutes} minutes`;
+          document.getElementById('btn-download-receipt').href = ord.receiptFile;
+          document.getElementById('success-modal').classList.remove('hidden');
+
+          fetchMenu(); // Refresh stock counts
+          fetchTokens(); // Refresh live queue
+        } else {
+          alert("Order failed: " + (data.error || "Unknown error"));
+        }
+      } catch (err) {
+        alert("Server connection error: " + err.message);
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = `<i class="fa-solid fa-lock"></i> Confirm Payment & Print Token`;
+      }
+    }
+
+    function closeSuccessAndShowBoard() {
+      document.getElementById('success-modal').classList.add('hidden');
+      switchTab('board');
+    }
+
+    // Live Digital Token Queue Board
+    async function fetchTokens() {
+      try {
+        const res = await fetch('/api/tokens');
+        const data = await res.json();
+        if (data.success) {
+          renderTokenBoard(data.active, data.completed);
+        }
+      } catch (err) {}
+    }
+
+    function renderTokenBoard(activeOrders, completedOrders) {
+      const cookingList = document.getElementById('board-cooking-list');
+      const readyList = document.getElementById('board-ready-list');
+      const doneList = document.getElementById('board-completed-list');
+
+      const cookingOrders = activeOrders.filter(o => o.statusCode === 1 || o.statusCode === 2);
+      const readyOrders = activeOrders.filter(o => o.statusCode === 3);
+
+      document.getElementById('board-cooking-count').textContent = cookingOrders.length;
+      document.getElementById('board-ready-count').textContent = readyOrders.length;
+      document.getElementById('board-completed-count').textContent = completedOrders.length;
+      document.getElementById('nav-active-count').textContent = activeOrders.length;
+
+      // Render Cooking
+      if (cookingOrders.length === 0) {
+        cookingList.innerHTML = `<p class="text-xs text-[#8C684E] py-10 text-center font-medium">No active kitchen orders cooking.</p>`;
+      } else {
+        cookingList.innerHTML = cookingOrders.map(o => `
+          <div class="p-3.5 rounded-2xl bg-white border border-[#EAD1B2] space-y-1.5 shadow-sm">
+            <div class="flex items-center justify-between">
+              <span class="text-base font-black font-mono text-[#D97724]">TK-${o.tokenNumber}</span>
+              <span class="text-[10px] px-2 py-0.5 rounded-full bg-[#FFE799] text-[#7A4510] font-extrabold border border-[#F0D58A]">
+                ${o.status}
+              </span>
+            </div>
+            <p class="text-xs font-bold text-[#3C2415]">${o.customer.name}</p>
+            <p class="text-[11px] text-[#6B472E] truncate font-medium">${o.items.map(i => `${i.quantity}x ${i.name}`).join(', ')}</p>
+          </div>
+        `).join('');
+      }
+
+      // Render Ready
+      if (readyOrders.length === 0) {
+        readyList.innerHTML = `<p class="text-xs text-[#2E7D32] py-10 text-center font-medium">No orders awaiting pickup.</p>`;
+      } else {
+        readyList.innerHTML = readyOrders.map(o => `
+          <div class="p-4 rounded-2xl bg-white border-2 border-[#2E7D32] shadow-lg shadow-emerald-600/10 ready-pulse space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="text-2xl font-black font-mono text-[#2E7D32] tracking-wider">TK-${o.tokenNumber}</span>
+              <span class="text-xs px-2.5 py-0.5 rounded-full bg-[#2E7D32] text-white font-extrabold uppercase shadow-sm">READY</span>
+            </div>
+            <p class="text-xs font-extrabold text-[#3C2415]">${o.customer.name} (${o.customer.role})</p>
+            <p class="text-xs text-[#2E7D32] font-black"><i class="fa-solid fa-bell"></i> Please collect at Counter #1!</p>
+          </div>
+        `).join('');
+      }
+
+      // Render Completed
+      if (completedOrders.length === 0) {
+        doneList.innerHTML = `<p class="text-xs text-[#8C684E] py-10 text-center font-medium">No orders completed today yet.</p>`;
+      } else {
+        doneList.innerHTML = completedOrders.slice(0, 5).map(o => `
+          <div class="p-3 rounded-xl bg-white border border-[#EAD1B2] flex items-center justify-between shadow-sm">
+            <span class="text-xs font-mono font-bold text-[#8C684E]">TK-${o.tokenNumber}</span>
+            <span class="text-xs text-[#3C2415] font-semibold truncate max-w-[120px]">${o.customer.name}</span>
+            <span class="text-[10px] text-[#2E7D32] font-bold"><i class="fa-solid fa-check"></i> Done</span>
+          </div>
+        `).join('');
+      }
+    }
+
+    // Token Lookup
+    async function trackTokenSubmit() {
+      const tokenInput = document.getElementById('track-token-input').value;
+      if (!tokenInput) return;
+      const box = document.getElementById('track-result-box');
+      box.classList.remove('hidden');
+      box.innerHTML = `<p class="text-xs text-[#6B472E] py-4 text-center font-semibold"><i class="fa-solid fa-spinner fa-spin"></i> Checking system records...</p>`;
+
+      try {
+        const res = await fetch(`/api/token_status?token=${tokenInput}`);
+        const data = await res.json();
+        if (data.success) {
+          const o = data.order;
+          box.innerHTML = `
+            <div class="p-5 rounded-2xl bg-[#FFF9EC] border border-[#EAD1B2] space-y-3">
+              <div class="flex items-center justify-between">
+                <div>
+                  <span class="text-xs text-[#8C684E] font-medium">Token Number</span>
+                  <p class="text-2xl font-black font-mono text-[#D97724]">TK-${o.tokenNumber}</p>
+                </div>
+                <span class="px-3 py-1 rounded-full text-xs font-bold ${o.statusCode === 3 ? 'bg-[#2E7D32] text-white shadow-sm' : 'bg-[#FFE799] text-[#7A4510] border border-[#F0D58A]'}">
+                  ${o.status}
+                </span>
+              </div>
+              <div class="text-xs space-y-1 text-[#6B472E] border-t border-[#EAD1B2] pt-3 font-medium">
+                <p><strong class="text-[#3C2415]">Customer:</strong> ${o.customer.name} (${o.customer.role})</p>
+                <p><strong class="text-[#3C2415]">Placed At:</strong> ${o.timestamp}</p>
+                <p><strong class="text-[#3C2415]">Items:</strong> ${o.items.map(i => `${i.quantity}x ${i.name}`).join(', ')}</p>
+                <p><strong class="text-[#3C2415]">Total Bill:</strong> Rs. ${o.grandTotal.toFixed(2)}</p>
+              </div>
+              <div class="pt-2">
+                <a href="${o.receiptFile}" target="_blank" class="text-xs font-bold text-[#D97724] hover:underline">
+                  <i class="fa-solid fa-file-invoice"></i> View Saved Tax Receipt
+                </a>
+              </div>
+            </div>
+          `;
+        } else {
+          box.innerHTML = `
+            <div class="p-4 rounded-2xl bg-[#FFEBEE] border border-[#FFCDD2] text-[#C62828] text-xs text-center font-bold">
+              ${data.error}
+            </div>
+          `;
+        }
+      } catch (err) {
+        box.innerHTML = `<p class="text-xs text-[#C62828] text-center font-bold">Error connecting to server.</p>`;
+      }
+    }
+
+    // Kitchen Portal & Analytics
+    async function fetchAnalytics() {
+      try {
+        const [analRes, tokenRes] = await Promise.all([
+          fetch('/api/analytics'),
+          fetch('/api/tokens')
+        ]);
+        const anal = await analRes.json();
+        const tokens = await tokenRes.json();
+
+        if (anal.success) {
+          document.getElementById('stat-revenue').textContent = `Rs. ${anal.totalRevenue.toFixed(2)}`;
+          document.getElementById('stat-orders').textContent = anal.totalOrders;
+          document.getElementById('stat-active').textContent = anal.activeCount;
+          document.getElementById('stat-ratio').textContent = `${anal.studentOrders} St / ${anal.facultyOrders} Fac`;
+        }
+
+        if (tokens.success) {
+          renderKitchenTable(tokens.active);
+        }
+      } catch (err) {}
+    }
+
+    function renderKitchenTable(activeOrders) {
+      const tbody = document.getElementById('kitchen-table-body');
+      if (activeOrders.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="6" class="px-4 py-8 text-center text-[#8C684E] text-xs font-semibold">No active orders awaiting kitchen dispatch.</td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = activeOrders.map(o => `
+        <tr class="hover:bg-[#FFF6E5] transition">
+          <td class="px-4 py-3 font-mono font-bold text-[#D97724]">TK-${o.tokenNumber}</td>
+          <td class="px-4 py-3 font-bold text-[#3C2415]">${o.customer.name}</td>
+          <td class="px-4 py-3 text-xs text-[#6B472E] font-medium">${o.items.map(i => `${i.quantity}x ${i.name}`).join(', ')}</td>
+          <td class="px-4 py-3 font-mono font-bold text-[#3C2415]">Rs. ${o.grandTotal.toFixed(2)}</td>
+          <td class="px-4 py-3">
+            <span class="px-2 py-0.5 rounded-lg text-[11px] font-bold ${o.statusCode === 3 ? 'bg-[#EAF5EA] text-[#2E7D32] border border-[#A5D6A7]' : 'bg-[#FFE799] text-[#7A4510] border border-[#F0D58A]'}">
+              ${o.status}
+            </span>
+          </td>
+          <td class="px-4 py-3 text-right">
+            <button onclick="advanceTokenStatus(${o.tokenNumber})" 
+                    class="px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-[#D97724] to-[#E08A38] hover:from-[#C06216] hover:to-[#CD7425] text-white font-bold text-xs transition shadow-sm">
+              ${o.statusCode === 1 ? 'Start Cooking' : (o.statusCode === 2 ? 'Mark Ready' : 'Complete')}
+            </button>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    async function advanceTokenStatus(tokenNumber) {
+      try {
+        const res = await fetch('/api/advance_token', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ tokenNumber })
+        });
+        const data = await res.json();
+        if (data.success) {
+          fetchAnalytics();
+          fetchTokens();
+        }
+      } catch (err) {}
+    }
+
+    // Profile Management
+    function updateUserDisplay() {
+      document.getElementById('nav-user-name').textContent = currentUser.name;
+      const discount = currentUser.role === 'Faculty' ? '10% OFF' : '5% OFF';
+      document.getElementById('nav-user-role').textContent = `${currentUser.role} (${discount})`;
+      document.getElementById('prof-wallet-val').textContent = `Rs. ${currentUser.wallet.toFixed(2)}`;
+
+      const initials = currentUser.name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+      document.getElementById('nav-user-avatar').textContent = initials;
+      updateCartDisplay();
+    }
+
+    function openProfileModal() {
+      document.getElementById('prof-name').value = currentUser.name;
+      document.getElementById('prof-id').value = currentUser.id;
+      document.getElementById('prof-role').value = currentUser.role;
+      document.getElementById('profile-modal').classList.remove('hidden');
+    }
+
+    function closeProfileModal() {
+      document.getElementById('profile-modal').classList.add('hidden');
+    }
+
+    function saveProfile() {
+      currentUser.name = document.getElementById('prof-name').value.trim() || "Rahul Sharma";
+      currentUser.id = document.getElementById('prof-id').value.trim() || "CS24-105";
+      currentUser.role = document.getElementById('prof-role').value;
+      updateUserDisplay();
+      closeProfileModal();
+    }
+
+    function topUpWallet() {
+      currentUser.wallet += 500.0;
+      updateUserDisplay();
+      alert("Added Rs. 500.00 to your Campus Wallet!");
+    }
+  </script>
+
+</body>
+</html>

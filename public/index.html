@@ -637,18 +637,44 @@
       }
     }
 
+    const FALLBACK_MENU = [
+      {"type":"Food","id":101,"name":"Masala Dosa","price":60,"categoryId":1,"category":"Breakfast","dietaryId":0,"dietary":"Veg","spiceLevel":"Medium","prepTimeMinutes":8,"stock":40,"available":true},
+      {"type":"Food","id":102,"name":"Idli Sambar (2 pcs)","price":40,"categoryId":1,"category":"Breakfast","dietaryId":0,"dietary":"Veg","spiceLevel":"Mild","prepTimeMinutes":5,"stock":45,"available":true},
+      {"type":"Food","id":103,"name":"Indori Poha with Sev","price":35,"categoryId":1,"category":"Breakfast","dietaryId":0,"dietary":"Veg","spiceLevel":"Mild","prepTimeMinutes":4,"stock":45,"available":true},
+      {"type":"Food","id":104,"name":"Aloo Paratha with Curd","price":50,"categoryId":1,"category":"Breakfast","dietaryId":0,"dietary":"Veg","spiceLevel":"Medium","prepTimeMinutes":10,"stock":35,"available":true},
+      {"type":"Food","id":201,"name":"Special Veg Thali","price":120,"categoryId":2,"category":"Main Course","dietaryId":0,"dietary":"Veg","spiceLevel":"Medium","prepTimeMinutes":12,"stock":30,"available":true},
+      {"type":"Food","id":202,"name":"Hyderabadi Chicken Biryani","price":160,"categoryId":2,"category":"Main Course","dietaryId":1,"dietary":"Non-Veg","spiceLevel":"Spicy","prepTimeMinutes":10,"stock":35,"available":true},
+      {"type":"Food","id":203,"name":"Paneer Butter Masala + Naan","price":140,"categoryId":2,"category":"Main Course","dietaryId":0,"dietary":"Veg","spiceLevel":"Medium","prepTimeMinutes":12,"stock":25,"available":true},
+      {"type":"Food","id":204,"name":"Dilli Rajma Chawal Bowl","price":80,"categoryId":2,"category":"Main Course","dietaryId":0,"dietary":"Veg","spiceLevel":"Medium","prepTimeMinutes":6,"stock":40,"available":true},
+      {"type":"Food","id":301,"name":"Crispy Samosa (2 pcs)","price":30,"categoryId":3,"category":"Snacks","dietaryId":0,"dietary":"Veg","spiceLevel":"Spicy","prepTimeMinutes":3,"stock":60,"available":true},
+      {"type":"Food","id":302,"name":"Veg Cheese Grilled Sandwich","price":70,"categoryId":3,"category":"Snacks","dietaryId":0,"dietary":"Veg","spiceLevel":"Mild","prepTimeMinutes":7,"stock":30,"available":true},
+      {"type":"Food","id":303,"name":"Paneer Tikka Kathi Roll","price":85,"categoryId":3,"category":"Snacks","dietaryId":0,"dietary":"Veg","spiceLevel":"Spicy","prepTimeMinutes":8,"stock":25,"available":true},
+      {"type":"Food","id":304,"name":"Peri Peri French Fries","price":65,"categoryId":3,"category":"Snacks","dietaryId":2,"dietary":"Vegan","spiceLevel":"Spicy","prepTimeMinutes":6,"stock":40,"available":true},
+      {"type":"Beverage","id":401,"name":"Adrak Masala Chai","price":15,"categoryId":4,"category":"Beverages","isHot":true,"volumeMl":150,"caffeine":true,"stock":95,"available":true},
+      {"type":"Beverage","id":402,"name":"South Indian Filter Coffee","price":25,"categoryId":4,"category":"Beverages","isHot":true,"volumeMl":180,"caffeine":true,"stock":80,"available":true},
+      {"type":"Beverage","id":403,"name":"Thick Cold Coffee w/ Cream","price":55,"categoryId":4,"category":"Beverages","isHot":false,"volumeMl":300,"caffeine":true,"stock":50,"available":true},
+      {"type":"Beverage","id":404,"name":"Chilled Fresh Lime Soda","price":35,"categoryId":4,"category":"Beverages","isHot":false,"volumeMl":250,"caffeine":false,"stock":60,"available":true},
+      {"type":"Food","id":501,"name":"Hot Gulab Jamun (2 pcs)","price":40,"categoryId":5,"category":"Desserts","dietaryId":0,"dietary":"Veg","spiceLevel":"Mild","prepTimeMinutes":2,"stock":40,"available":true},
+      {"type":"Food","id":502,"name":"Warm Brownie with Vanilla","price":75,"categoryId":5,"category":"Desserts","dietaryId":0,"dietary":"Veg","spiceLevel":"Mild","prepTimeMinutes":4,"stock":25,"available":true},
+      {"type":"Combo","id":601,"name":"Campus Hunger Buster Combo","price":160,"categoryId":6,"category":"Combos","originalPrice":190,"includedItems":["Veg Cheese Sandwich","Peri Peri Fries","Cold Coffee"],"stock":20,"available":true},
+      {"type":"Combo","id":602,"name":"Morning South Indian Combo","price":95,"categoryId":6,"category":"Combos","originalPrice":115,"includedItems":["Masala Dosa","Idli (1 pc)","Filter Coffee"],"stock":25,"available":true}
+    ];
+
     // Menu Retrieval & Filtering
     async function fetchMenu() {
       try {
         const res = await fetch('/api/menu');
         const data = await res.json();
-        if (data.success) {
+        if (data.success && data.items && data.items.length > 0) {
           menuItems = data.items;
           renderMenu();
+          return;
         }
       } catch (err) {
-        console.error("Failed to load menu:", err);
+        console.warn("Using offline fallback menu:", err);
       }
+      menuItems = [...FALLBACK_MENU];
+      renderMenu();
     }
 
     function renderMenu() {

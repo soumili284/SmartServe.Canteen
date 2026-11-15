@@ -1,0 +1,29 @@
+=================================================================
+              SMARTSERVE COLLEGE CANTEEN SYSTEM                 
+                   TAX INVOICE & ORDER TOKEN                     
+=================================================================
+ Order ID:       #74420
+ Token Number:   >>> [ TK-105 ] <<<
+ Order Status:   Order Placed
+ Date & Time:    2026-11-14 21:53:40
+ Customer:       Rahul Sharma (Student)
+ Contact No:     9876543210
+-----------------------------------------------------------------
+ Qty | Description                     | Unit Price | Total Price
+-----------------------------------------------------------------
+   1 | South Indian Filter Coffee      |      25.00 |      25.00
+-----------------------------------------------------------------
+ Subtotal:                                            Rs.    25.00
+ Privilege Discount (Student):       -        Rs.     1.25
+ Canteen GST (5%):                                      Rs.     1.19
+-----------------------------------------------------------------
+ FINAL AMOUNT PAYABLE:                                Rs.    24.94
+=================================================================
+ Payment Method: UPI
+ Transaction ID: REF-615376
+ Payment Status: PAID & VERIFIED
+ Est. Pickup Time: ~7 minutes from order placement
+ Please watch the Live Digital Token Board for 'TK-105'!
+=================================================================
+        Thank you for choosing SmartServe Canteen System!        
+=================================================================
