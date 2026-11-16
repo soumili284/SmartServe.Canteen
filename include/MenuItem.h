@@ -26,6 +26,7 @@ public:
     ItemCategory getCategory() const { return category; }
     int getStockQuantity() const { return stockQuantity; }
     bool isAvailable() const { return available && stockQuantity > 0; }
+    bool isMarkedAvailable() const { return available; }
 
     // Setters / Mutators
     void setPrice(double newPrice);

@@ -129,7 +129,7 @@ bool Menu::updateItemStock(int id, int addedStock) {
 bool Menu::toggleAvailability(int id) {
     auto item = getItemById(id);
     if (item) {
-        item->setAvailable(!item->isAvailable());
+        item->setAvailable(!item->isMarkedAvailable());
         return true;
     }
     return false;

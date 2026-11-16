@@ -128,7 +128,11 @@ bool FileStorage::loadMenuFromFile(Menu& menu) const {
 }
 
 bool FileStorage::saveReceiptToFile(const Order& order) const {
-    std::string path = receiptsDir + "/receipt_TK" + std::to_string(order.getTokenNumber()) + ".txt";
+    std::string dir = receiptsDir;
+    while (!dir.empty() && dir.back() == '/') {
+        dir.pop_back();
+    }
+    std::string path = dir + "/receipt_TK" + std::to_string(order.getTokenNumber()) + ".txt";
     std::ofstream outFile(path);
     if (!outFile.is_open()) {
         return false;

@@ -17,6 +17,8 @@
 #include <memory>
 #include <iomanip>
 #include <limits>
+#include <cstdlib>
+#include <ctime>
 #include <vector>
 
 // Forward declarations of menu controllers
@@ -35,6 +37,7 @@ void handleSalesReport(const FileStorage& storage, const TokenManager& tokenMgr)
 
 int main() {
     UI::initConsole();
+    std::srand(static_cast<unsigned int>(std::time(nullptr)));
     Menu canteenMenu;
     FileStorage storage("data/menu.txt", "data/orders_history.txt", "receipts");
     TokenManager tokenManager(101);
